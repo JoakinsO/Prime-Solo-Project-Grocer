@@ -1,5 +1,5 @@
-myApp.service('UserService', ['$http', '$location', function($http, $location){
-  console.log('UserService Loaded');
+myApp.service('LoginService', ['$http', '$location', function($http, $location){
+  console.log('LoginService Loaded');
   var self = this;
   self.userObject = {};
 
@@ -28,7 +28,6 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       console.log('sending to server...', newUserCreds);
       $http.post('/api/user/register', newUserCreds).then(function (response) {
         console.log('success');
-        $location.path('/home');
       },
         function (response) {
           console.log('error');
@@ -37,28 +36,28 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
   };
 
   self.getuser = function(){
-    console.log('UserService -- getuser');
+    console.log('LoginService -- getuser');
     $http.get('/api/user').then(function(response) {
         if(response.data.username) {
             // user has a curret session on the server
             self.userObject.userName = response.data.username;
-            console.log('UserService -- getuser -- User Data: ', self.userObject.userName);
+            console.log('LoginService -- getuser -- User Data: ', self.userObject.userName);
         } else {
-            console.log('UserService -- getuser -- failure');
+            console.log('LoginService -- getuser -- failure');
             // user has no session, bounce them back to the login page
-            $location.path("/home");
+            $location.path("/login");
         }
     },function(response){
-      console.log('UserService -- getuser -- failure: ', response);
+      console.log('LoginService -- getuser -- failure: ', response);
       $location.path("/home");
     });
-  },
+  };
 
   self.logout = function() {
-    console.log('UserService -- logout');
+    console.log('LoginService -- logout');
     $http.get('/api/user/logout').then(function(response) {
-      console.log('UserService -- logout -- logged out');
-      $location.path("/home");
+      console.log('LoginService -- logout -- logged out');
+      $location.path("/login");
     });
   };
 }]);
