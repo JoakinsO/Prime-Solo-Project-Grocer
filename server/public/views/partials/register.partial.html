@@ -1,0 +1,35 @@
+<div id="registerDialog">
+  <md-dialog aria-label="Register New User">
+    <form ng-cloak>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>Register New User:</h2>
+          <span flex></span>
+        </div>
+      </md-toolbar>
+      <md-dialog-content>
+        <div class="md-dialog-content">
+          <h3 ng-if="vm.registerAlert">Please enter in a username and a password.</h3>
+          <ul>
+            <li>
+              <label for="">Username:</label>
+              <input type="text" ng-model="vm.newUser.username" />
+            </li>
+            <li>
+              <label for="">Password:</label>
+              <input type="password" ng-model="vm.newUser.password" />
+            </li>
+          </ul>
+        </div>
+      </md-dialog-content>
+      <md-dialog-actions layout="row">
+        <md-button ng-click="vm.answer(vm.newUser)" class="md-primary">
+          Register
+        </md-button>
+        <md-button ng-click="vm.cancel()">
+         Cancel
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>
+</div>
