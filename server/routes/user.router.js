@@ -27,9 +27,7 @@ router.post('/register', (req, res, next) => {
   const newPerson = new Person({ username, password });
   newPerson.save()
     .then(() => { res.sendStatus(201); })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {next (err); });
 });
 
 // Handles login form authenticate/login POST

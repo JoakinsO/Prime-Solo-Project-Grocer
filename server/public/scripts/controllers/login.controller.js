@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDialog', function($http, $location, UserService, $mdDialog) {
+myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdDialog', function($http, $location, LoginService, $mdDialog) {
     console.log('LoginController created');
     var self = this;
     self.user = {
@@ -6,7 +6,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
       password: ''
     };
 
-    self.message = UserService.message;
+    self.message = LoginService.message;
 
     self.loginAlert = false;
 
@@ -45,7 +45,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
         console.log('sending to server...', newUser);
         $http.post('/api/user/register', newUser).then(function (response) {
           console.log('success');
-          $location.path('/home');
+          $location.path('/login');
         },
           function (response) {
             console.log('error');

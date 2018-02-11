@@ -5,22 +5,18 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
   console.log('myApp -- config');
   $routeProvider
     .when('/', {
-      redirectTo: 'home'
+      redirectTo: 'login'
     })
-    .when('/home', {
-      templateUrl: '/views/templates/home.html',
+    .when('/login', {
+      templateUrl: '/views/templates/login.view.html',
       controller: 'LoginController as vm',
-    })
-    .when('/register', {
-      templateUrl: '/views/templates/register.html',
-      controller: 'LoginController as vm'
     })
     .when('/user', {
       templateUrl: '/views/templates/user.html',
       controller: 'UserController as vm',
       resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
+        getuser : function(LoginService){
+          return LoginService.getuser();
         }
       }
     })
@@ -28,8 +24,8 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       templateUrl: '/views/templates/info.html',
       controller: 'InfoController as vm',
       resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
+        getuser : function(LoginService){
+          return LoginService.getuser();
         }
       }
     })

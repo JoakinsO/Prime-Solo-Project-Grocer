@@ -1,6 +1,6 @@
-myApp.controller('UserController', ['UserService', function(UserService) {
+myApp.controller('UserController', ['LoginService', function(LoginService) {
   console.log('UserController created');
   var self = this;
-  self.userService = UserService;
-  self.userObject = UserService.userObject;
+  self.userService = LoginService;
+  self.userObject = LoginService.userObject;
 }]);
