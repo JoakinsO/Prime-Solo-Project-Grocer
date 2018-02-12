@@ -10,7 +10,7 @@ myApp.controller('IngredientsController', ['RecipeService', function(RecipeServi
   self.addIngredients = function(ingredients) {
     let ingredientsToSend = {
       recipeId : self.recipeInfo._id,
-      ingredients : ingredients
+      ingredients : ingredients.list
     };
     RecipeService.sendIngredients(ingredientsToSend);
   };

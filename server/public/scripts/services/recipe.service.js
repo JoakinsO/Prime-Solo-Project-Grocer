@@ -22,7 +22,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   };
 
   self.sendIngredients = function(ingredientsInfo) {
-    $http.put('/', ingredientsInfo)
+    $http.put('/recipes', ingredientsInfo)
         .then(function(response){
           console.log('Added Ingredients', response);
         })

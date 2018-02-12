@@ -14,9 +14,9 @@ router.post('/', (req, res) => {
     recipeName : req.body.recipeName,
     userId : req.user._id
   };
-  console.log(newRecipe);
+  // console.log(newRecipe);
 
-  let recipeToSave = new Recipe(newRecipe);
+  let recipeToSave = new Recipe.Recipe(newRecipe);
 
   recipeToSave.save()
     .then((result) => {
@@ -25,6 +25,30 @@ router.post('/', (req, res) => {
     .catch((error) => {
       next(error);
     });
+});
+
+router.put('/', (req, res) => {
+  // console.log(req.body);
+
+  let recipeId = req.body.recipeId;
+
+  for (let i = 0; i < req.body.ingredients.length; i++) {
+    let newIngredient = new Recipe.Ingredients(req.body.ingredients[i]);
+    Recipe.Recipe.findByIdAndUpdate(
+      { "_id": recipeId },
+      { $push: { ingredients: newIngredient } },
+      (pusherror, doc) => {
+          if (pusherror) {
+              console.log('error on push to ingredient array: ', pusherror);
+              res.sendStatus(500);
+          } else {
+              console.log('updated Recipe Document: ', doc);
+              console.log('-----------------------------');
+              res.sendStatus(201);
+          }
+      }
+    );
+  }
 });
 
 module.exports = router;

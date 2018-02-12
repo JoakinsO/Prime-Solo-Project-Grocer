@@ -1,12 +1,23 @@
 const mongoose = require('mongoose');
 
+
 const Schema = mongoose.Schema;
 
-// Mongoose Schema
+const IngredientsSchema = new Schema({
+  ingredientName: {type: String, required: true},
+  category : {type: String, required: true},
+  quantity : {type: Number, required: true},
+  measurement : {type: String, required: true}
+});
+
 const RecipeSchema = new Schema({
   recipeName : { type: String, required: true},
-  ingredients : [],
+  ingredients : [IngredientsSchema],
   userId : {type: mongoose.Schema.ObjectId, ref: 'Person'}
 });
 
-module.exports = mongoose.model('Recipe', RecipeSchema);
+
+module.exports = {
+  Recipe: mongoose.model('Recipe', RecipeSchema),
+  Ingredients: mongoose.model('Ingredients', IngredientsSchema)
+};
