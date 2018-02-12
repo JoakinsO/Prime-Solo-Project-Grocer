@@ -1,1 +1,30 @@
-<h1>hello world</h1>
+<header ng-include="'/views/partials/nav.html'"></header>
+
+
+<h1>{{vm.recipeInfo.recipeName}}</h1>
+<button type="button" name="button" ng-click="vm.addIngredients(vm.ingredients)">Submit Ingredients</button>
+
+<div ng-repeat="ingredient in vm.ingredients.list">
+  <input type="text" ng-value="ingredient.ingredientName" ng-model="ingredient.ingredientName" >
+  <select name="" id="" ng-model='ingredient.category'>
+    <option value="">Category</option>
+    <option value="Refrigerator">Refrigerator</option>
+    <option value="Freezer">Freezer</option>
+    <option value="Pantry">Pantry</option>
+  </select>
+  <input type="text" placeholder="Quantity" ng-model='ingredient.quantity'>
+  <select name="" ng-model='ingredient.measurement'>
+    <option value="">Measurement</option>
+    <option value="Tsp-fl">Tsp-fl</option>
+    <option value="Tbsp-fl">Tbsp-fl</option>
+    <option value="Cup-fl">Cup-fl</option>
+    <option value="Tsp">Tsp</option>
+    <option value="Tbsp">Tbsp</option>
+    <option value="Cup">Cup</option>
+    <option value="Fl-oz">Fl-oz</option>
+    <option value="Oz">Oz</option>
+    <option value="Lbs">Lbs</option>
+    <option value="Item">Whole Item</option>
+  </select>
+  <button type="button" name="button">Remove</button>
+</div>

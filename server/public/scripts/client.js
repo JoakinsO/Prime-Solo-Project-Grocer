@@ -26,7 +26,7 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', function
     })
     .when('/ingredients', {
       templateUrl: '/views/templates/ingredients.view.html',
-      controller: 'AddRecipeController as vm',
+      controller: 'IngredientsController as vm',
       resolve: {
         getuser : function(LoginService){
           return LoginService.getuser();

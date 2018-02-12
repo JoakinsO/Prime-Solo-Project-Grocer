@@ -2,24 +2,50 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   console.log('RecipeService Loaded');
   var self = this;
 
-  self.ingredients = [];
+  self.ingredients = {list:[]};
+  self.recipeInfo = {};
 
   self.createRecipe = function(recipeName, ingredients) {
-    self.ingredients = ingredients;
-
-    console.log(recipeName, self.ingredients);
 
     let config = {recipeName,};
 
-    console.log(config);
-
-    $http.post('/recipes', config)
+  $http.post('/recipes', config)
       .then(function(response){
-        console.log('recipe added: ', response);
+        console.log('recipe added: ', response.data);
+        self.recipeInfo = response.data;
+        ingredientObjects(ingredients);
         $location.path('/ingredients');
       })
       .catch(function(error){
         console.log('Error on POST: ',error);
       });
   };
+
+  self.sendIngredients = function(ingredientsInfo) {
+    $http.put('/', ingredientsInfo)
+        .then(function(response){
+          console.log('Added Ingredients', response);
+        })
+        .catch(function(error){
+          console.log('Error adding ingredients ', error);
+        });
+  };
+
+  function ingredientObjects (ingredients) {
+    let newIngredientList = [];
+    for (var i = 0; i < ingredients.length; i++) {
+      newIngredientList.push(new Ingredient(ingredients[i]));
+    }
+    self.ingredients.list = newIngredientList;
+  }
+
+  class Ingredient {
+    constructor(name) {
+      this.ingredientName = name;
+      this.category = '';
+      this.quantity = '';
+      this.measurement = '';
+    }
+  }
+
 }]);
