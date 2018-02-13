@@ -17,13 +17,13 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
       if (self.user.username === '' || self.user.password === '') {
         self.loginAlert = true;
       } else {
-        console.log('sending to server...', userCreds);
+        console.log('sending to server...');
         $http.post('/api/user/login', userCreds).then(
           function (response) {
             if (response.status == 200) {
               console.log('success: ', response.data);
               // location works with SPA (ng-route)
-              $location.path('/user');
+              $location.path('/home');
               self.loginAlert = false;
             } else {
               console.log('failure error: ', response);
