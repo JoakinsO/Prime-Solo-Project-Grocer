@@ -42,9 +42,6 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   class Ingredient {
     constructor(name) {
       this.ingredientName = name;
-      this.category = '';
-      this.quantity = '';
-      this.measurement = '';
     }
   }
 

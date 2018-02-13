@@ -30,25 +30,40 @@ router.post('/', (req, res) => {
 router.put('/', (req, res) => {
   // console.log(req.body);
 
+
+
+
+
   let recipeId = req.body.recipeId;
+
+  let errCount = 0;
 
   for (let i = 0; i < req.body.ingredients.length; i++) {
     let newIngredient = new Recipe.Ingredients(req.body.ingredients[i]);
+
     Recipe.Recipe.findByIdAndUpdate(
       { "_id": recipeId },
-      { $push: { ingredients: newIngredient } },
-      (pusherror, doc) => {
+      { $push:
+        { ingredients: newIngredient } },
+      (err, doc) => {
           if (pusherror) {
-              console.log('error on push to ingredient array: ', pusherror);
-              res.sendStatus(500);
+            errCount++;
+            console.log('error on push to game array: ', pusherror);
           } else {
-              console.log('updated Recipe Document: ', doc);
-              console.log('-----------------------------');
-              res.sendStatus(201);
+            console.log('updated Recipe Document: ', doc);
+            console.log('-----------------------------');
           }
       }
     );
   }
+
+  if(errCount > 0) {
+      res.sendStatus(500);
+  } else {
+      res.sendStatus(201);
+  }
+
+
 });
 
 module.exports = router;
