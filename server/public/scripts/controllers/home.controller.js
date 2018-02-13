@@ -1,4 +1,4 @@
-myApp.controller('HomeController', ['RecipeService', function(RecipeService){
+myApp.controller('HomeController', ['RecipeService', 'LoginService', function(RecipeService, LoginService){
   console.log('HomeController created');
   var self = this;
   self.userRecipes = RecipeService.userRecipes;
@@ -10,8 +10,11 @@ myApp.controller('HomeController', ['RecipeService', function(RecipeService){
   self.getRecipes();
 
   self.removeRecipe = function(recipe) {
-    console.log(recipe);
+    RecipeService.removeRecipe(recipe);
   };
 
+  self.logout = function() {
+    LoginService.logout();
+  };
 
 }]);
