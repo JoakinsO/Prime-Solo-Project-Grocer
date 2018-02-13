@@ -7,6 +7,20 @@ const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
 
 
+router.get('/', (req, res) => {
+  console.log(req.user);
+  Recipe.Recipe.find({'userId': req.user._id}, (error, data) => {
+    if (error) {
+      console.log('Error getting recipes: ', error);
+      res.sendStatus(500);
+    } else {
+      console.log('Foud recipes: ', data);
+      res.send(data);
+    }
+  });
+});
+
+
 // COMBAK: Refactor this
 router.post('/', (req, res) => {
 
@@ -28,14 +42,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/', (req, res) => {
-  // console.log(req.body);
-
-
-
-
-
   let recipeId = req.body.recipeId;
-
   let errCount = 0;
 
   for (let i = 0; i < req.body.ingredients.length; i++) {
@@ -45,10 +52,10 @@ router.put('/', (req, res) => {
       { "_id": recipeId },
       { $push:
         { ingredients: newIngredient } },
-      (err, doc) => {
+      (pusherror, doc) => {
           if (pusherror) {
             errCount++;
-            console.log('error on push to game array: ', pusherror);
+            console.log('error on push to Ingredient array: ', pusherror);
           } else {
             console.log('updated Recipe Document: ', doc);
             console.log('-----------------------------');
@@ -62,7 +69,6 @@ router.put('/', (req, res) => {
   } else {
       res.sendStatus(201);
   }
-
 
 });
 

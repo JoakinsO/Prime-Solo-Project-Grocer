@@ -12,7 +12,7 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
           if (response.status == 200) {
             console.log('success: ', response.data);
             // location works with SPA (ng-route)
-            $location.path('/user');
+            $location.path('/home');
           } else {
             console.log('failure error: ', response);
             self.message = "Incorrect credentials. Please try again.";
@@ -40,7 +40,7 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
     $http.get('/api/user').then(function(response) {
         if(response.data.username) {
             // user has a curret session on the server
-            self.userObject.userName = response.data.username;
+            self.userObject.userData = response.data._id;
             console.log('LoginService -- getuser -- User Data: ', self.userObject.userName);
         } else {
             console.log('LoginService -- getuser -- failure');

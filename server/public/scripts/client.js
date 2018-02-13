@@ -15,6 +15,15 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', function
       templateUrl: '/views/templates/login.view.html',
       controller: 'LoginController as vm',
     })
+    .when('/home', {
+      templateUrl: '/views/templates/home.view.html',
+      controller: 'HomeController as vm',
+      resolve: {
+        getuser : function(LoginService){
+          return LoginService.getuser();
+        }
+      }
+    })
     .when('/addRecipe', {
       templateUrl: '/views/templates/addRecipe.view.html',
       controller: 'AddRecipeController as vm',

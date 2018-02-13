@@ -1,0 +1,15 @@
+<header ng-include="'/views/partials/nav.html'"></header>
+
+<h2>Recipes</h2>
+
+<button type="button" name="button">Add Recipe</button>
+
+
+<div layout-xs="column" layout="row" layout-wrap>
+  <div class="card" ng-repeat="recipe in vm.userRecipes.list">
+    <div class="container">
+      <h4><b>{{recipe.recipeName}}</b></h4>
+      <button>View</button><button ng-click="vm.removeRecipe(recipe)">Remove</button>
+    </div>
+  </div>
+</div>

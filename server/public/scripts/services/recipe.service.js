@@ -4,6 +4,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
 
   self.ingredients = {list:[]};
   self.recipeInfo = {};
+  self.userRecipes = {list:[]};
 
   self.createRecipe = function(recipeName, ingredients) {
 
@@ -25,6 +26,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
     $http.put('/recipes', ingredientsInfo)
         .then(function(response){
           console.log('Added Ingredients', response);
+          $location.path('/home');
         })
         .catch(function(error){
           console.log('Error adding ingredients ', error);
@@ -44,5 +46,31 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
       this.ingredientName = name;
     }
   }
+
+  self.getRecipesFromUser = function() {
+    $http.get('/recipes')
+      .then(function(results) {
+        console.log('recipes :', results.data);
+        self.userRecipes.list = results.data;
+      })
+      .catch(function(error) {
+        console.log('Error getting recipes', error);
+      });
+  };
+
+  self.removeRecipe = function(recipe) {
+    let config = {
+      recipeId: recipe._id
+    };
+    $http.delete('/', config)
+      .then(function(response){
+        console.log('removed recipe:', response);
+      })
+      .catch(function(error){
+        console.log('error removing recipe:', error);
+      });
+  };
+
+
 
 }]);
