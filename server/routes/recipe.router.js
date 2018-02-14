@@ -72,4 +72,18 @@ router.put('/', (req, res) => {
 
 });
 
+router.delete('/:id', (req, res) => {
+  console.log(req.params.id);
+  Recipe.Recipe.findByIdAndRemove({"_id": req.params.id},
+  (error, data )=> {
+    if(error){
+      console.log('error on remove ', error);
+      res.sendStatus(500);
+    }else{
+      console.log('deleted recipe: ', data);
+      res.send(data);
+    }
+  });
+});
+
 module.exports = router;
