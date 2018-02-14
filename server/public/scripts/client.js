@@ -42,18 +42,9 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', function
         }
       }
     })
-    .when('/user', {
-      templateUrl: '/views/templates/user.html',
-      controller: 'UserController as vm',
-      resolve: {
-        getuser : function(LoginService){
-          return LoginService.getuser();
-        }
-      }
-    })
-    .when('/info', {
-      templateUrl: '/views/templates/info.html',
-      controller: 'InfoController as vm',
+    .when('/groceryList', {
+      templateUrl: '/views/templates/grocerylist.view.html',
+      controller: 'GroceryListController as vm',
       resolve: {
         getuser : function(LoginService){
           return LoginService.getuser();
