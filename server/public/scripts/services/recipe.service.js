@@ -26,6 +26,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
     $http.put('/recipes', ingredientsInfo)
         .then(function(response){
           console.log('Added Ingredients', response);
+          self.getRecipesFromUser();
           $location.path('/home');
         })
         .catch(function(error){
@@ -59,18 +60,17 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   };
 
   self.removeRecipe = function(recipe) {
-    let config = {
-      recipeId: recipe._id
-    };
-    $http.delete('/', config)
+    console.log(recipe._id);
+    $http.delete(`/recipes/${recipe._id}`)
       .then(function(response){
         console.log('removed recipe:', response);
+        self.getRecipesFromUser();
       })
       .catch(function(error){
         console.log('error removing recipe:', error);
       });
   };
 
-
+  self.getRecipesFromUser();
 
 }]);
