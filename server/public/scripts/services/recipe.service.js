@@ -37,16 +37,16 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   function ingredientObjects (ingredients) {
     let newIngredientList = [];
     for (var i = 0; i < ingredients.length; i++) {
-      newIngredientList.push(new Ingredient(ingredients[i]));
+      newIngredientList.push(new self.IngredientClass(ingredients[i]));
     }
     self.ingredients.list = newIngredientList;
   }
 
-  class Ingredient {
+  self.IngredientClass = class Ingredient {
     constructor(name) {
       this.ingredientName = name;
     }
-  }
+  };
 
   self.getRecipesFromUser = function() {
     $http.get('/recipes')
