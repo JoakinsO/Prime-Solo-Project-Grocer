@@ -56,7 +56,7 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
 
     self.registerDialog = function (ev) {
       $mdDialog.show({
-          controller: DialogController,
+          controller: RegisterDialogController,
           controllerAs: 'vm',
           templateUrl: '../views/partials/register.partial.html',
           parent: angular.element(document.body),
@@ -71,7 +71,7 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
         });
     };
 
-    function DialogController($mdDialog) {
+    function RegisterDialogController($mdDialog) {
       const self = this;
 
       self.registerAlert = false;

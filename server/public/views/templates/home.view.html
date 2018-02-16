@@ -10,7 +10,7 @@
   <div class="card" ng-repeat="recipe in vm.userRecipes.list">
     <div class="container">
       <h4><b>{{recipe.recipeName}}</b></h4>
-      <button>View</button><button ng-click="vm.removeRecipe(recipe)">Remove</button>
+      <button ng-click="vm.viewRecipe(recipe)">View</button><button ng-click="vm.removeRecipe(recipe)">Remove</button>
     </div>
   </div>
 </div>
