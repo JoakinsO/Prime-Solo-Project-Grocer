@@ -45,6 +45,21 @@ router.put('/', (req, res) => {
   let recipeId = req.body.recipeId;
   let errCount = 0;
 
+  Recipe.Recipe.findByIdAndUpdate(
+    { "_id": recipeId },
+    { $set:
+      { ingredients: [] } },
+    (pusherror, doc) => {
+        if (pusherror) {
+          errCount++;
+          console.log('error on push to Ingredient array: ', pusherror);
+        } else {
+          console.log('updated Recipe Document: ', doc);
+          console.log('-----------------------------');
+        }
+    }
+  );
+
   for (let i = 0; i < req.body.ingredients.length; i++) {
     let newIngredient = new Recipe.Ingredients(req.body.ingredients[i]);
 

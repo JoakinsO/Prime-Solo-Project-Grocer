@@ -10,7 +10,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
 
     let config = {recipeName,};
 
-  $http.post('/recipes', config)
+    $http.post('/recipes', config)
       .then(function(response){
         console.log('recipe added: ', response.data);
         self.recipeInfo = response.data;
@@ -69,6 +69,13 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
       .catch(function(error){
         console.log('error removing recipe:', error);
       });
+  };
+
+
+  self.editRecipe = function(recipe) {
+    self.recipeInfo = recipe
+    self.ingredients.list = recipe.ingredients;
+    $location.path('/ingredients');
   };
 
   self.getRecipesFromUser();

@@ -32,3 +32,8 @@
   width: 600px;
   height: 400px;
 }
+
+#singleRecipeModal {
+  width: 70%;
+  height: 75%;
+}
