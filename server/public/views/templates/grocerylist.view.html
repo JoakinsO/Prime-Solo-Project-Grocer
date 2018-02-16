@@ -2,23 +2,41 @@
 <h1>hello world</h1>
 
 
-<select class="" name="">
-
+<select ng-model="vm.addRecipe" ng-options="value as value.recipeName for (recipe, value) in vm.recipeList.list">
 </select>
 
-<button type="button" name="button">Add Recipes</button>
+<button type="button" name="button" ng-click="vm.addRecipesToList(vm.addRecipe)">Add Recipes</button>
 
 <h3>Recipes Added:</h3>
+<p ng-repeat="recipe in vm.addedRecipes">{{recipe}}</p>
 
 
 
 
 <div class="">
   <h2>Shopping List</h2>
-
-  <h4>Refrigerator</h4>
-  <br />
-  <h4>Freezer</h4>
-  <br />
-  <h4>Pantry</h4>
+  <div>
+    <h4>Refrigerator</h4>
+    <p ng-repeat="ingredient in vm.refrigerator">
+      {{ingredient.ingredientName}}
+      {{ingredient.quantity}}
+      {{ingredient.measurement}}
+    </p>
+  </div>
+  <div>
+    <h4>Freezer</h4>
+    <p ng-repeat="ingredient in vm.freezer">
+      {{ingredient.ingredientName}}
+      {{ingredient.quantity}}
+      {{ingredient.measurement}}
+    </p>
+  </div>
+  <div>
+    <h4>Pantry</h4>
+    <p ng-repeat="ingredient in vm.pantry">
+      {{ingredient.ingredientName}}
+      {{ingredient.quantity}}
+      {{ingredient.measurement}}
+    </p>
+  </div>
 </div>
