@@ -26,6 +26,6 @@
     <option value="Lbs">Lbs</option>
     <option value="Item">Whole Item</option>
   </select>
-  <button type="button" name="button">Remove</button>
+  <button type="button" name="button" ng-click="vm.removeIngredient($index)">Remove</button>
 </div>
 <button type="button" name="button" ng-click="vm.addSingleIngredient()">Add Ingredient</button>
