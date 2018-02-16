@@ -14,4 +14,8 @@ myApp.controller('IngredientsController', ['RecipeService', function(RecipeServi
     };
     RecipeService.sendIngredients(ingredientsToSend);
   };
+
+  self.addSingleIngredient = function() {
+    self.ingredients.list.push(new RecipeService.IngredientClass(''));
+  };
 }]);
