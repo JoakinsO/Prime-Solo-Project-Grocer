@@ -18,4 +18,9 @@ myApp.controller('IngredientsController', ['RecipeService', function(RecipeServi
   self.addSingleIngredient = function() {
     self.ingredients.list.push(new RecipeService.IngredientClass(''));
   };
+
+  self.removeIngredient = function(ingredientIndex) {
+    console.log(ingredientIndex);
+    self.ingredients.list.splice(ingredientIndex, 1);
+  };
 }]);
