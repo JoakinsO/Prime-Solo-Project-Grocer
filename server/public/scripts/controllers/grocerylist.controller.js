@@ -14,81 +14,52 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
     for (var i = 0; i < recipe.ingredients.length; i++) {
       ingredientsArray.push(recipe.ingredients[i]);
     }
-    // gives an array of each item in the master list, only once
-    let dupsRemoved = removeDups(ingredientsArray, 'ingredientName');
-    // console.log('Dups removed', dupsRemoved);
+    // console.log('Original Array of ingredients', ingredientsArray);
 
-    // sorts the master list of ingredients by category.
-    // object with properties .refrigerator, .freezer, .pantry
     let sortedIngredients = sortCategories(ingredientsArray);
-    // console.log('sorted', sortedIngredients);
+    // console.log('Sorted to categories(fridge)', sortedIngredients.refrigerator);
 
-    // object with categories sorted into arrays and ingredients listed only once
-    let sortedNoDups = {
-      refrigerator : removeDups(sortedIngredients.refrigerator, 'ingredientName'),
-      freezer : removeDups(sortedIngredients.freezer, 'ingredientName'),
-      pantry : removeDups(sortedIngredients.pantry, 'ingredientName')
-    };
+    let sortedFridgeNoDuplicates = removeDups(sortedIngredients.refrigerator, 'ingredientName');
+    // console.log('Fridge no duplicates', sortedFridgeNoDuplicates);
 
-    // console.log('sorted no dups', sortedNoDups);
+    let sortedFridgeByIngName = sortByProp(sortedIngredients.refrigerator, sortedFridgeNoDuplicates, 'ingredientName');
+    // console.log('ingredients sorted by name', sortedFridgeByIngName);
 
-    // Creates an array of arrays of objects which puts each ingredient in an array with like ingredient names
-    let fridgeSort = sortByProp(sortedIngredients.refrigerator, sortedNoDups.refrigerator, 'ingredientName');
-    // let freezerSort = sortByName(sortedIngredients.freezer, sortedNoDups.freezer);
-    // let pantrySort = sortByName(sortedIngredients.pantry, sortedNoDups.pantry);
+    let fridgeMeasurementsNoDuplicates= getMeasurements(sortedFridgeByIngName);
+    console.log('Measurement sort ',fridgeMeasurementsNoDuplicates);
 
-    // console.log('fridge ingredient sort',fridgeSort);
-    // console.log(freezerSort);
-    // console.log(pantrySort);
-
-    let fridgeMeasurementSort = getMeasurements(fridgeSort);
-
-    let fridgeCalc = calculateQuantities(fridgeMeasurementSort);
-
-    // let fridgeMeasurementSort = sortByProp(fridgeSort, sortedNoDups.refrigerator, 'measurement');
-    //
-    // console.log('Fridge measurement sort', fridgeMeasurementSort);
+    let fridgeQuantities = calculateQuantities(fridgeMeasurementsNoDuplicates.sortedMeasurements, fridgeMeasurementsNoDuplicates.noDuplicates);
   };
 
-  function calculateQuantities(arr) {
-    console.log('begin', arr);
 
-    let quantitiesNoDups = [];
+  function calculateQuantities(originalArray, noDuplicates) {
+    // console.log('begin', arr);
+    console.log('og', originalArray);
+    // console.log('no dups', noDuplicates);
 
-    for (var i = 0; i < arr.length; i++) {
-      for (var j = 0; j < arr[i].length; j++) {
-        arr[i][j][0].quantity = arr[i][j].reduce((x, y) => ({quantity: x.quantity + y.quantity}));
-        quantitiesNoDups.push();
-      }
-    }
-    console.log('quantitiesNoDups ',quantitiesNoDups);
+    // let quantities = [];
+    // for (var i = 0; i < originalArray.length; i++) {
+    //   originalArray[i]
+    // }
+
+
+
+    // for (var i = 0; i < quantities.length; i++) {
+    //   for (var j = 0; j < originalArray[i].length; j++) {
+    //     console.log(originalArray);
+    //   }
+    // }
+
   }
 
-  function getMeasurements(array) {
-    let noDups = [];
-    let sortedMeasurements = [];
-    //
-    for (let i = 0; i < array.length; i++) {
-      noDups.push(removeDups(array[i], 'measurement'));
-    }
 
-    console.log('in getMeasurements() noDups', noDups);
+  // for (var i = 0; i < arr.length; i++) {
+  //   for (var j = 0; j < arr[i].length; j++) {
+  //     arr[i][j][0].quantity = arr[i][j].reduce((x, y) => ({quantity: x.quantity + y.quantity}));
+  //     quantitiesNoDups.push();
+  //   }
+  // }
 
-    for (var i = 0; i < noDups.length; i++) {
-      sortedMeasurements.push(sortByProp(array[i], noDups[i], 'measurement'));
-    }
-    return sortedMeasurements;
-  }
-
-  function sortByProp(dups, noDups, prop) {
-    let sortedArray = [];
-    for (let i = 0; i < noDups.length; i++) {
-
-      sortedArray.push(dups.filter((x) => x[prop] == noDups[i][prop]));
-    }
-    // console.log('split by name: ',sortedArray);
-    return sortedArray;
-  }
 
   function sortCategories(ingredientsArray) {
     let refrigerator = [];
@@ -116,6 +87,37 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
     return sorted;
   }
 
+  function sortByProp(originalArray, noDuplicates, property) {
+    let sortedArray = [];
+    for (let i = 0; i < noDuplicates.length; i++) {
+      sortedArray.push(originalArray.filter((item) => item[property] == noDuplicates[i][property]));
+    }
+    // console.log('split by name: ',sortedArray);
+    return sortedArray;
+  }
+
+  function getMeasurements(originalArray) {
+    let sortedMeasurements = [];
+    let noDuplicates = [];
+
+    for (let i = 0; i < originalArray.length; i++) {
+      noDuplicates.push(removeDups(originalArray[i], 'measurement'));
+      // console.log(originalArray[i]);
+    }
+    // console.log('in getMeasurements( originalArray)', originalArray);
+    // console.log('in getMeasurements() noDups', noDuplicates);
+
+    for (var i = 0; i < noDuplicates.length; i++) {
+      sortedMeasurements.push(sortByProp(originalArray[i], noDuplicates[i], 'measurement'));
+    }
+    // console.log('Sorted by measurement', sortedMeasurements);
+    let sorted = {
+      sortedMeasurements,
+      noDuplicates,
+    };
+
+    return sorted
+  }
 
 
   // removes duplicates from an array of objects
