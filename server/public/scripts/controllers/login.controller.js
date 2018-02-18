@@ -39,7 +39,7 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
 
     self.registerUser = function (newUser) {
       console.log(newUser);
-      if (newUser.username === '' || newUser.password === '') {
+      if (newUser == undefined || newUser.username === '' || newUser.password === '') {
         self.message = "Choose a username and password!";
       } else {
         console.log('sending to server...', newUser);
