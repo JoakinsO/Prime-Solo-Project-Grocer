@@ -5,21 +5,27 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-// Handles Ajax request for user information if user is authenticated
+
+// GET Routes
+
+// runs if POST '/login' comes back successful
 router.get('/', (req, res) => {
-  // check if logged in
   if (req.isAuthenticated()) {
-    // send back user object from database
     res.send(req.user);
   } else {
-    // failure best handled on the server. do redirect here.
     res.sendStatus(403);
   }
 });
 
-// Handles POST request with new user data
-// The only thing different from this and every other post we've seen
-// is that the password gets encrypted before being inserted
+// logs out and clears all server session information about this user
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.sendStatus(200);
+});
+
+// POST Routes
+
+// registers new users with the application
 router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
@@ -30,19 +36,10 @@ router.post('/register', (req, res, next) => {
     .catch((err) => {next (err); });
 });
 
-// Handles login form authenticate/login POST
-// userStrategy.authenticate('local') is middleware that we run on this route
-// this middleware will run our POST if successful
-// this middleware will send a 404 if not successful
+// recieves login information from the client and runs the passport local strategy
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
 });
 
-// clear all server session information about this user
-router.get('/logout', (req, res) => {
-  // Use passport's built-in method to log out the user
-  req.logout();
-  res.sendStatus(200);
-});
 
 module.exports = router;
