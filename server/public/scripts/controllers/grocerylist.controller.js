@@ -9,7 +9,13 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
   self.freezer = [];
   self.pantry = [];
 
+  self.tester = function(thing) {
+    console.log(thing);
+  };
+
+
   self.addRecipesToList = function(recipe) {
+    console.log(recipe);
     self.addedRecipes.push(recipe.recipeName);
 
     // adding ingredients to master list
@@ -40,11 +46,9 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
     let freezerQuantities = calculateQuantities(freezerMeasurementsNoDuplicates.sortedMeasurements, freezerMeasurementsNoDuplicates.noDuplicates);
     let pantryQuantities = calculateQuantities(pantryMeasurementsNoDuplicates.sortedMeasurements, pantryMeasurementsNoDuplicates.noDuplicates);
 
-
-    console.log('fridge ', self.refrigerator);
-    console.log(self.freezer);
-    console.log(self.pantry);
-
+    // console.log('fridge ', self.refrigerator);
+    // console.log(self.freezer);
+    // console.log(self.pantry);
 
     let fridgeQtyNoDups = removeDups(fridgeQuantities, 'ingredientName');
     let freezerQtyNoDups = removeDups(freezerQuantities, 'ingredientName');
