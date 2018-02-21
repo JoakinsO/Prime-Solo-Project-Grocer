@@ -2,7 +2,7 @@
 
 <main id="addRecipesList">
   <div layout="column" >
-    <h1 class="pageTitle">Add Recipe</h1>
+    <h1 class="titleUnderline">Add Recipe</h1>
     <div flex>
       <md-input-container>
         <label>Recipe Name</label>
@@ -11,7 +11,7 @@
     </div>
     <div flex>
       <div id="addIngredientsChips">
-        <h2>Ingredient List</h2>
+        <h2 class="titleUnderline">Ingredient List</h2>
         <p>Type an ingredient name below and press the enter key. Once you are finished press the 'Create Recipe' button.</p>
         <md-chips ng-model="vm.ingredients" readonly="vm.readonly" md-removable="vm.removable" placeholder="Add ingredient names..."></md-chips>
       </div>
