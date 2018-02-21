@@ -16,7 +16,7 @@
 <div class="">
   <h2>Shopping List</h2>
   <div>
-    <h4>Refrigerator</h4>
+    <h4 ng-if="vm.refrigerator.length >= 1">Refrigerator</h4>
     <p ng-repeat="ingredient in vm.refrigerator">
       {{ingredient.ingredientName}}
       {{ingredient.quantity}}
@@ -24,7 +24,7 @@
     </p>
   </div>
   <div>
-    <h4>Freezer</h4>
+    <h4 ng-if="vm.freezer.length >= 1">Freezer</h4>
     <p ng-repeat="ingredient in vm.freezer">
       {{ingredient.ingredientName}}
       {{ingredient.quantity}}
@@ -32,7 +32,7 @@
     </p>
   </div>
   <div>
-    <h4>Pantry</h4>
+    <h4 ng-if="vm.pantry.length >= 1">Pantry</h4>
     <p ng-repeat="ingredient in vm.pantry">
       {{ingredient.ingredientName}}
       {{ingredient.quantity}}
