@@ -1,9 +1,21 @@
 <header ng-include="'/views/partials/nav.html'"></header>
 
-<label for="">Recipe Name:</label>
-<input type="text" ng-model="vm.recipeName">
-<md-content class="md-padding" layout="column">
-  <h2 class="md-title">Add ingredients here:</h2>
-  <md-chips ng-model="vm.ingredients" readonly="vm.readonly" md-removable="vm.removable"></md-chips>
-</md-content>
-<button type="button" name="button" ng-click="vm.createRecipe(vm.recipeName,vm.ingredients)">Create Recipe</button>
+<main id="addRecipesList">
+  <div layout="column" >
+    <h1 class="pageTitle">Add Recipe</h1>
+    <div flex>
+      <md-input-container>
+        <label>Recipe Name</label>
+        <input ng-model="vm.recipeName">
+      </md-input-container>
+    </div>
+    <div flex>
+      <div id="addIngredientsChips">
+        <h2>Ingredient List</h2>
+        <p>Type an ingredient name below and press the enter key. Once you are finished press the 'Create Recipe' button.</p>
+        <md-chips ng-model="vm.ingredients" readonly="vm.readonly" md-removable="vm.removable" placeholder="Add ingredient names..."></md-chips>
+      </div>
+      <md-button class="md-raised" id="submitRecipeBtn" ng-click="vm.createRecipe(vm.recipeName,vm.ingredients)">Create Recipe</md-button>
+    </div>
+  </div>
+</main>
