@@ -1,7 +1,7 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 /// Routes ///
-myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', function($routeProvider, $locationProvider, $mdIconProvider) {
+myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', '$mdThemingProvider', function($routeProvider, $locationProvider, $mdIconProvider, $mdThemingProvider) {
   console.log('myApp -- config');
 
   $mdIconProvider
@@ -54,4 +54,5 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', function
     .otherwise({
       template: '<h1>404</h1>'
     });
+
 }]);

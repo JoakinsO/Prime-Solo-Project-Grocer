@@ -1,6 +1,43 @@
+html, body {
+  background-color: #F0F0F1;
+  font-family: 'Open Sans', sans-serif;
+  color: #1A2A40;
+}
 
+.md-button.md-default-theme.md-accent, .md-button.md-accent {
+    color: rgb(240, 224, 9);
+}
+
+md-nav-bar.md-default-theme md-nav-ink-bar, md-nav-bar md-nav-ink-bar {
+    /* color: rgb(240, 224, 9); */
+    background: rgb(240, 224, 9);
+}
+
+md-nav-bar.md-default-theme .md-button._md-nav-button.md-unselected, md-nav-bar .md-button._md-nav-button.md-unselected {
+    color: #EBF4F7;
+}
+
+md-select {
+
+}
 
 /* CLASSES */
+
+.title {
+  color: #EBF4F7;
+  display: inline;
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+.appTitle {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.navigation {
+  background-color: #1A2A40;
+}
 
 .card {
     /* Add shadows to create the "card" effect */
@@ -21,6 +58,9 @@
     padding: 2px 16px;
 }
 
+.bold {
+  font-weight: bold;
+}
 /* IDs */
 
 #loginHeader {
@@ -36,4 +76,13 @@
 #singleRecipeModal {
   width: 70%;
   height: 75%;
+}
+
+#groceryList {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#recipeSelect {
+  width: 350px;
 }
