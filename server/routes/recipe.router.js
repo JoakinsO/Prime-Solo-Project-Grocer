@@ -1,15 +1,25 @@
 const express = require('express');
 const encryptLib = require('../modules/encryption');
 const Person = require('../models/Person');
-const Recipe = require('../models/recipe.model');
+const Schema = require('../models/recipe.model');
 const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
+// Check if user is authenticated
+var isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()){
+    return next();
+  }
+  res.send('Must be logged in to add items!');
+};
 
-router.get('/', (req, res) => {
-  console.log(req.user);
-  Recipe.Recipe.find({'userId': req.user._id}, (error, data) => {
+// GET Routes
+
+// gets all recipes associated with user
+router.get('/', isAuthenticated, (req, res) => {
+
+  Schema.Recipe.find({'userId': req.user._id}, (error, data) => {
     if (error) {
       console.log('Error getting recipes: ', error);
       res.sendStatus(500);
@@ -20,76 +30,76 @@ router.get('/', (req, res) => {
   });
 });
 
+// POST Routes
 
-// COMBAK: Refactor this
-router.post('/', (req, res) => {
+// adds recipe to database
+router.post('/', isAuthenticated, (req, res) => {
 
   const newRecipe = {
     recipeName : req.body.recipeName,
     userId : req.user._id
   };
-  // console.log(newRecipe);
 
-  let recipeToSave = new Recipe.Recipe(newRecipe);
+  let recipeToSave = new Schema.Recipe(newRecipe);
 
   recipeToSave.save()
     .then((result) => {
       res.send(result);
     })
     .catch((error) => {
-      next(error);
+      console.log('Error on post', error);
+      res.sendStatus(500);
     });
 });
 
-router.put('/', (req, res) => {
-  let recipeId = req.body.recipeId;
-  let errCount = 0;
+// PUT Routes
 
-  Recipe.Recipe.findByIdAndUpdate(
+// updates ingredient list for a single recipe
+router.put('/', isAuthenticated, (req, res) => {
+
+  let recipeId = req.body.recipeId;
+
+  Schema.Recipe.findByIdAndUpdate(
     { "_id": recipeId },
     { $set:
       { ingredients: [] } },
-    (pusherror, doc) => {
-        if (pusherror) {
+    (error, doc) => {
+        if (error) {
           errCount++;
-          console.log('error on push to Ingredient array: ', pusherror);
+          console.log('error on push to Ingredient array: ', error);
+          res.sendStatus(500);
         } else {
           console.log('updated Recipe Document: ', doc);
           console.log('-----------------------------');
+
+          for (let i = 0; i < req.body.ingredients.length; i++) {
+            let newIngredient = new Schema.Ingredients(req.body.ingredients[i]);
+            Schema.Recipe.findByIdAndUpdate(
+              { "_id": recipeId },
+              { $push:
+                { ingredients: newIngredient } },
+              (addError, doc) => {
+                  if (addError) {
+                    console.log('error on push to Ingredient array: ', addError);
+                  } else {
+                    console.log('updated Recipe Document: ', doc);
+                    console.log('-----------------------------');
+                  }
+              }
+            );
+          }
+          res.sendStatus(201);
         }
     }
   );
-
-  for (let i = 0; i < req.body.ingredients.length; i++) {
-    let newIngredient = new Recipe.Ingredients(req.body.ingredients[i]);
-
-    Recipe.Recipe.findByIdAndUpdate(
-      { "_id": recipeId },
-      { $push:
-        { ingredients: newIngredient } },
-      (pusherror, doc) => {
-          if (pusherror) {
-            errCount++;
-            console.log('error on push to Ingredient array: ', pusherror);
-          } else {
-            console.log('updated Recipe Document: ', doc);
-            console.log('-----------------------------');
-          }
-      }
-    );
-  }
-
-  if(errCount > 0) {
-      res.sendStatus(500);
-  } else {
-      res.sendStatus(201);
-  }
-
 });
 
-router.delete('/:id', (req, res) => {
-  console.log(req.params.id);
-  Recipe.Recipe.findByIdAndRemove({"_id": req.params.id},
+// DELETE Routes
+
+// removes recipes from database
+router.delete('/:id', isAuthenticated, (req, res) => {
+
+  Schema.Recipe.findByIdAndRemove({"_id": req.params.id},
   (error, data )=> {
     if(error){
       console.log('error on remove ', error);
