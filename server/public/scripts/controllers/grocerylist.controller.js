@@ -2,8 +2,6 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
   console.log('GroceryListController created');
   var self = this;
 
-  console.log(Qty('lbs').isCompatible('oz'));
-
   self.recipeList = RecipeService.userRecipes;
   self.addedRecipes = [];
   self.ingredients = [];
@@ -196,7 +194,7 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
     } else if ( array.find((elem) => elem.measurement == 'floz') != undefined) {
       for (let i = 0; i < array.length; i++) {
         let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length < 2) {
+        if (array[i].measurement.split('-').length == 2) {
           if (Qty(array[i].measurement).isCompatible('floz')) {
             let newQuantity = Qty(array[i].quantity, newMeasurement[0]).to('floz');
             array[i].quantity = newQuantity.scalar;
@@ -218,8 +216,8 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
     } else if ( array.find((elem) => elem.measurement == 'cup-fl') != undefined) {
       for (let i = 0; i < array.length; i++) {
         let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length < 2) {
-          if (Qty(array[i].measurement).isCompatible('cup')) {
+        if (array[i].measurement.split('-').length == 2) {
+          if (Qty(newMeasurement[0]).isCompatible('cup')) {
             let newQuantity = Qty(array[i].quantity, newMeasurement[0]).to('cup');
             array[i].quantity = newQuantity.scalar;
             array[i].measurement = 'cup-fl';
@@ -240,11 +238,38 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
     } else if ( array.find((elem) => elem.measurement == 'tbsp-fl') != undefined) {
       for (let i = 0; i < array.length; i++) {
         let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length < 2) {
-          if (Qty(array[i].measurement).isCompatible('tbsp')) {
+        if (array[i].measurement.split('-').length == 2) {
+          if (Qty(newMeasurement[0]).isCompatible('tbsp')) {
             let newQuantity = Qty(array[i].quantity, newMeasurement[0]).to('tbsp');
             array[i].quantity = newQuantity.scalar;
             array[i].measurement = 'tbsp-fl';
+          }
+        }
+      }
+    } else if ( array.find((elem) => elem.measurement == 'tsp') != undefined) {
+      for (let i = 0; i < array.length; i++) {
+        let newMeasurement = array[i].measurement.split('-');
+        if (array[i].measurement.split('-').length < 2) {
+          if (Qty(array[i].measurement).isCompatible('tbsp')) {
+            if (array[i].quantity >= 3) {
+              let newQuantity = Qty(array[i].quantity, array[i].measurement).to('tbsp');
+              array[i].quantity = newQuantity.scalar;
+              array[i].measurement = 'tbsp';
+            }
+          }
+        }
+      }
+    } else if ( array.find((elem) => elem.measurement == 'tsp-fl') != undefined) {
+      for (let i = 0; i < array.length; i++) {
+        let newMeasurement = array[i].measurement.split('-');
+        console.log(newMeasurement);
+        if (array[i].measurement.split('-').length == 2) {
+          if (Qty(newMeasurement[0]).isCompatible('tbsp')) {
+            if (array[i].quantity >= 3) {
+              let newQuantity = Qty(array[i].quantity, newMeasurement[0]).to('tbsp');
+              array[i].quantity = newQuantity.scalar;
+              array[i].measurement = 'tbsp-fl';
+            }
           }
         }
       }
