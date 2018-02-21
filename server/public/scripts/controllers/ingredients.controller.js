@@ -1,4 +1,4 @@
-myApp.controller('IngredientsController', ['RecipeService', function(RecipeService) {
+ myApp.controller('IngredientsController', ['RecipeService', function(RecipeService) {
   console.log('IngredientsController created');
   var self = this;
 
