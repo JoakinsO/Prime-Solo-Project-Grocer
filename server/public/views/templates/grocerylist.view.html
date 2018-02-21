@@ -1,7 +1,7 @@
 <header ng-include="'/views/partials/nav.html'"></header>
 
 <main id="groceryList">
-  <h1>Grocery List</h1>
+  <h1 class="titleUnderline">Grocery List</h1>
   <div layout="row" layout-xs="column" layout-sm="column">
     <div flex>
       <p>Select recipes from the list below to populate the shopping list.</p>
@@ -14,12 +14,12 @@
         </md-select>
       </md-input-container>
       <md-button class="md-raised" ng-click="vm.addRecipesToList(user.state)">Add Recipes</md-button>
-      <h3>Recipes Added:</h3>
+      <h3 class="titleUnderline">Recipes Added:</h3>
       <p ng-repeat="recipe in vm.addedRecipes">{{recipe}}</p>
     </div>
     <div flex>
-      <div class="">
-        <h2>Shopping List</h2>
+      <div>
+        <h2 class="titleUnderline">Shopping List</h2>
         <div layout="row" layout-sm="column" layout-xs="column">
           <div flex>
             <h4 ng-if="vm.refrigerator.length >= 1">Refrigerator</h4>

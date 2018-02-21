@@ -78,7 +78,7 @@ md-dialog.md-default-theme, md-dialog {
   font-weight: bold;
 }
 
-.pageTitle {
+.titleUnderline {
   text-decoration: underline;
 }
 /* IDs */
@@ -99,6 +99,13 @@ md-dialog.md-default-theme, md-dialog {
 }
 
 #groceryList {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#homeView {
+  margin-top: 50px;
   margin-left: 50px;
   margin-right: 50px;
 }
