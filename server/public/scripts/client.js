@@ -59,12 +59,18 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', '$mdThem
       '500': '#1A2A40',
       'contrastDefaultColor': 'dark'
     });
+    var whiteMap = $mdThemingProvider.extendPalette('pink', {
+      '500': 'F0F0F1',
+      'contrastDefaultColor': 'dark'
+    });
 
     // Register the new color palette map with the name <code>neonRed</code>
     $mdThemingProvider.definePalette('darkBlue', darkBlueMap);
+    // $mdThemingProvider.definePalette('w', darkBlueMap);
 
     // Use that theme for the primary intentions
     $mdThemingProvider.theme('default')
-      .primaryPalette('darkBlue');
+      .primaryPalette('darkBlue')
+      .accentPalette('grey');
 
 }]);

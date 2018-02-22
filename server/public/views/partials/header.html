@@ -1,15 +1,19 @@
-<div id="loginBar">
-    <form id="loginForm" ng-submit="vm.login(vm.user)">
-      <label for="">Username:</label>
-      <input type="text" ng-model="vm.user.username"/>
-      <label for="">Password:</label>
-      <input type="password" ng-model="vm.user.password"/>
-      <input class="btn btn-default" type="submit" name="submit" value="Log In" />
-    </form>
-    <div id="loginAlert" ng-if="vm.loginAlert">
-      <p>You have entered an invalid username or password. Please try again.</p>
-    </div>
-    <div id="register">
-      <button ng-click="vm.registerDialog()">Sign Up</button>
-    </div>
+<div layout="row" id="loginBar" layout-xs="column">
+  <h1 id="appTitle">Grocer</h1>
+  <span flex></span>
+  <div id="loginInputs" layout="row" layout-xs="column">
+    <md-input-container class="inputAlignment" flex-gt-md=35 flex-lt-sm=100>
+      <label id="userLabel">Username</label>
+      <input class="headerInput"type="text" ng-model="vm.user.username">
+    </md-input-container>
+    <md-input-container class="inputAlignment" flex-gt-md=35 flex-lt-sm=100>
+      <label id="passLabel">Password</label>
+      <input class="headerInput"type="password" ng-model="vm.user.password">
+    </md-input-container>
+    <md-button class="md-raised btnFocus" ng-click="vm.login(vm.user)" flex-gt-md=15 flex-lt-sm=100>Login</md-button>
+    <md-button class="md-raised btnFocus" ng-click="vm.registerDialog()" flex-gt-md=15 flex-lt-sm=100>Register</md-button>
+  </div>
+</div>
+<div id="loginAlert" ng-if="vm.loginAlert">
+  <p>You have entered an invalid username or password. Please try again.</p>
 </div>
