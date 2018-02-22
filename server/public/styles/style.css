@@ -4,10 +4,6 @@ html, body {
   color: #1A2A40;
 }
 
-.md-button.md-default-theme.md-accent, .md-button.md-accent {
-    color: rgb(240, 224, 9);
-}
-
 md-nav-bar.md-default-theme md-nav-ink-bar, md-nav-bar md-nav-ink-bar {
     /* color: rgb(240, 224, 9); */
     background: rgb(240, 224, 9);
@@ -28,6 +24,11 @@ md-dialog.md-default-theme, md-dialog {
 }
 
 /* CLASSES */
+
+
+.md-button.md-default-theme.md-accent, .md-button.md-accent {
+    color: rgb(240, 224, 9);
+}
 
 .md-button.md-default-theme.md-warn.md-fab, .md-button.md-warn.md-fab, .md-button.md-default-theme.md-warn.md-raised, .md-button.md-warn.md-raised {
   background-color: #E00B27;
@@ -50,11 +51,6 @@ md-dialog.md-default-theme, md-dialog {
   margin-top: 0;
 }
 
-.appTitle {
-  margin-top: 5px;
-  margin-bottom: 0;
-}
-
 .navigation {
   background-color: #1A2A40;
 }
@@ -63,9 +59,10 @@ md-dialog.md-default-theme, md-dialog {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 200px;
-    height: 300px;
+    width: 240px;
+    height: 120px;
     margin: 20px;
+    text-align: center;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -109,9 +106,49 @@ md-dialog.md-default-theme, md-dialog {
   margin: 10px;
 }
 
-.dangerBtn {
+/* .dangerBtn {
   color: #E00B27;
+} */
+
+.buttonDiv {
+  position: relative;
+  bottom: 0;
 }
+
+.md-button.recipeView {
+  width: 50%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background-color: #f0f0f1;
+  color: #2474A6;
+  box-shadow: none;
+}
+
+.md-button.md-raised:not([disabled]).recipeView {
+  box-shadow: none;
+}
+
+.md-button.md-raised:not([disabled]).recipeRemove {
+  box-shadow: none;
+}
+
+.md-button.md-warn.md-raised:not([disabled]):hover.recipeRemove,
+.md-button.md-raised:not([disabled]):hover.recipeView {
+  background-color: #f0f0f1;
+}
+
+
+.md-button.md-warn.recipeRemove {
+  width: 50%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background-color: #f0f0f1;
+  color: #E00B27;
+  border: none;
+}
+
 /* IDs */
 
 #loginHeader {
@@ -163,4 +200,17 @@ md-dialog.md-default-theme, md-dialog {
 
 #submitRecipeBtn {
   margin-top: 10px;
+}
+
+#addRecipeTitle {
+  margin-bottom: 5px;
+}
+
+#addButtonColor {
+  background-color: #2474A6;
+}
+
+#appTitle {
+  margin-top: 5px;
+  margin-bottom: 0;
 }
