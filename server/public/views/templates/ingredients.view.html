@@ -1,31 +1,45 @@
 <header ng-include="'/views/partials/nav.html'"></header>
 
+<main id="ingredientView">
+  <div class="">
+    <h1 class="titleUnderline">{{vm.recipeInfo.recipeName}}</h1>
 
-<h1>{{vm.recipeInfo.recipeName}}</h1>
-<button type="button" name="button" ng-click="vm.addIngredients(vm.ingredients)">Submit Ingredients</button>
-
-<div ng-repeat="ingredient in vm.ingredients.list">
-  <input type="text" ng-value="ingredient.ingredientName" ng-model="ingredient.ingredientName" >
-  <select name="" id="" ng-model='ingredient.category'>
-    <option value="">Category</option>
-    <option value="Refrigerator">Refrigerator</option>
-    <option value="Freezer">Freezer</option>
-    <option value="Pantry">Pantry</option>
-  </select>
-  <input type="text" placeholder="Quantity" ng-model='ingredient.quantity'>
-  <select name="" ng-model='ingredient.measurement'>
-    <option value="">Measurement</option>
-    <option value="tsp-fl">Tsp-fl</option>
-    <option value="tbsp-fl">Tbsp-fl</option>
-    <option value="cup-fl">Cup-fl</option>
-    <option value="tsp">Tsp</option>
-    <option value="tbsp">Tbsp</option>
-    <option value="cup">Cup</option>
-    <option value="floz">Fl-oz</option>
-    <option value="oz">Oz</option>
-    <option value="lbs">Lbs</option>
-    <option value="Item">Whole Item</option>
-  </select>
-  <button type="button" name="button" ng-click="vm.removeIngredient($index)">Remove</button>
-</div>
-<button type="button" name="button" ng-click="vm.addSingleIngredient()">Add Ingredient</button>
+  </div>
+  <div class="ingredientDiv" ng-repeat="ingredient in vm.ingredients.list">
+    <md-input-container class="inputAlignment">
+      <label>Ingredient Name</label>
+      <input ng-model="ingredient.ingredientName" ng-value="ingredient.ingredientName">
+    </md-input-container>
+    <md-input-container id="categorySelect" flex-gt-sm="" class="selectAlignment">
+      <label>Select A Category</label>
+      <md-select ng-model="ingredient.category">
+        <md-option value="Refrigerator">Refrigerator</md-option>
+        <md-option value="Freezer">Freezer</md-option>
+        <md-option value="Pantry">Pantry</md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container class="inputAlignment">
+      <label>Quantity</label>
+      <input ng-model="ingredient.quantity" ng-model='ingredient.quantity'>
+    </md-input-container>
+    <md-input-container id="measurementSelect" flex-gt-sm="" class="selectAlignment">
+      <label>Select A Category</label>
+      <md-select ng-model="ingredient.measurement">
+        <md-option value="">Measurement</md-option>
+        <md-option value="tsp-fl">Tsp-fl</md-option>
+        <md-option value="tbsp-fl">Tbsp-fl</md-option>
+        <md-option value="cup-fl">Cup-fl</md-option>
+        <md-option value="tsp">Tsp</md-option>
+        <md-option value="tbsp">Tbsp</md-option>
+        <md-option value="cup">Cup</md-option>
+        <md-option value="floz">Fl-oz</md-option>
+        <md-option value="oz">Oz</md-option>
+        <md-option value="lbs">Lbs</md-option>
+        <md-option value="Item">Whole Item</md-option>
+      </md-select>
+    </md-input-container>
+    <md-button class="dangerBtn"ng-click="vm.removeIngredient($index)">Remove</md-button>
+  </div>
+  <md-button class="md-raised" ng-click="vm.addSingleIngredient()">Add New Ingredient</md-button>
+  <md-button class="md-raised" ng-click="vm.addIngredients(vm.ingredients)">Submit Ingredients</md-button>
+</main>
