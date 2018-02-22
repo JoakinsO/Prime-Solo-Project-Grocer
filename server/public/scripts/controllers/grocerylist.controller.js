@@ -9,10 +9,13 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
   self.freezer = [];
   self.pantry = [];
 
-  self.tester = function(thing) {
-    console.log(thing);
-  };
 
+  self.clearRecipes = function() {
+    self.refrigerator = [];
+    self.freezer = [];
+    self.pantry = [];
+    self.addedRecipes = [];
+  };
 
   self.addRecipesToList = function(recipe) {
     console.log(recipe);
