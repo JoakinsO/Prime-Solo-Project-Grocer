@@ -6,6 +6,8 @@ myApp.controller('HomeController', ['RecipeService', 'LoginService', '$mdDialog'
 
   self.singleRecipe = {};
 
+
+
   self.removeRecipe = function(recipe) {
     RecipeService.removeRecipe(recipe);
   };
@@ -59,5 +61,6 @@ myApp.controller('HomeController', ['RecipeService', 'LoginService', '$mdDialog'
       $mdDialog.hide(answer);
     };
   }
+
 
 }]);

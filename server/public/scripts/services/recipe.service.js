@@ -52,7 +52,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
     $http.get('/recipes')
       .then(function(results) {
         console.log('recipes :', results.data);
-        self.userRecipes.list = results.data;
+        self.userRecipes.list = Object.assign({}, results.data);
       })
       .catch(function(error) {
         console.log('Error getting recipes', error);
@@ -73,7 +73,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
 
 
   self.editRecipe = function(recipe) {
-    self.recipeInfo = recipe
+    self.recipeInfo = recipe;
     self.ingredients.list = recipe.ingredients;
     $location.path('/ingredients');
   };
