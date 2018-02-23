@@ -1,4 +1,4 @@
- myApp.controller('IngredientsController', ['RecipeService', function(RecipeService) {
+ myApp.controller('IngredientsController', ['RecipeService', 'LoginService', function(RecipeService, LoginService) {
   console.log('IngredientsController created');
   var self = this;
 
@@ -23,4 +23,10 @@
     console.log(ingredientIndex);
     self.ingredients.list.splice(ingredientIndex, 1);
   };
+
+  self.logout = function() {
+    LoginService.logout();
+    RecipeService.userRecipes.list = [];
+  };
+
 }]);

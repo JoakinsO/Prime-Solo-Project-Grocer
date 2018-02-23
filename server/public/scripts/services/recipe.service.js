@@ -78,6 +78,5 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
     $location.path('/ingredients');
   };
 
-  self.getRecipesFromUser();
 
 }]);

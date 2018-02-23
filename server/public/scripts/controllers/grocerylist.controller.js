@@ -1,4 +1,4 @@
-myApp.controller('GroceryListController', ['RecipeService', function(RecipeService) {
+myApp.controller('GroceryListController', ['RecipeService', 'LoginService', function(RecipeService, LoginService) {
   console.log('GroceryListController created');
   var self = this;
 
@@ -9,6 +9,12 @@ myApp.controller('GroceryListController', ['RecipeService', function(RecipeServi
   self.freezer = [];
   self.pantry = [];
 
+  RecipeService.getRecipesFromUser();
+
+  self.logout = function() {
+    LoginService.logout();
+    RecipeService.userRecipes.list = [];
+  };
 
   self.clearRecipes = function() {
     self.refrigerator = [];

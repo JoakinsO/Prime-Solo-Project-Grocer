@@ -4,16 +4,21 @@ myApp.controller('HomeController', ['RecipeService', 'LoginService', '$mdDialog'
 
   self.userRecipes = RecipeService.userRecipes;
 
+  RecipeService.getRecipesFromUser();
+
   self.singleRecipe = {};
 
 
 
   self.removeRecipe = function(recipe) {
     RecipeService.removeRecipe(recipe);
+
+
   };
 
   self.logout = function() {
     LoginService.logout();
+    RecipeService.userRecipes.list = [];
   };
 
   self.viewRecipe = function(recipe) {
@@ -61,6 +66,7 @@ myApp.controller('HomeController', ['RecipeService', 'LoginService', '$mdDialog'
       $mdDialog.hide(answer);
     };
   }
+
 
 
 }]);
