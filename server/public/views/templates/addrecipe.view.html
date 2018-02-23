@@ -15,7 +15,7 @@
         <p>Type an ingredient name below and press the enter key. Once you are finished press the 'Create Recipe' button.</p>
         <md-chips ng-model="vm.ingredients" readonly="vm.readonly" md-removable="vm.removable" placeholder="Add ingredient names..."></md-chips>
       </div>
-      <md-button class="md-raised" id="submitRecipeBtn" ng-click="vm.createRecipe(vm.recipeName,vm.ingredients)">Create Recipe</md-button>
+      <md-button class="md-raised btnFocus" id="submitRecipeBtn" ng-click="vm.createRecipe(vm.recipeName,vm.ingredients)">Create Recipe</md-button>
     </div>
   </div>
 </main>

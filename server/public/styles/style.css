@@ -23,13 +23,7 @@ md-dialog.md-default-theme, md-dialog {
   background-color: #F0F0F1;
 }
 
-md-input-container.md-hue-1 .md-input
 /* CLASSES */
-
-
-/* .md-button.md-default-theme.md-accent, .md-button.md-accent {
-    color: rgb(240, 224, 9);
-} */
 
 md-input-container.md-default-theme .md-input, md-input-container .md-input.headerInput {
   color: white;
@@ -140,11 +134,18 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input.head
   background-color: #3d92c7;
 }
 
+.md-button.md-raised:not([disabled]).md-focused.btnFocusWhite {
+  background-color: #F0F0F1;
+}
+
 .md-button.md-warn.md-raised:not([disabled]):hover.recipeRemove,
 .md-button.md-raised:not([disabled]):hover.recipeView {
   background-color: #f0f0f1;
 }
 
+.md-button:not([disabled]).md-raised.md-focused.btnFocusWhite {
+  box-shadow: none;
+}
 
 .md-button.md-warn.recipeRemove {
   width: 50%;

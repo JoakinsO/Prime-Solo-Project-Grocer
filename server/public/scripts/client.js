@@ -71,6 +71,6 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', '$mdThem
     // Use that theme for the primary intentions
     $mdThemingProvider.theme('default')
       .primaryPalette('darkBlue')
-      .accentPalette('grey');
+      .accentPalette('blue');
 
 }]);
