@@ -1,4 +1,4 @@
-myApp.controller('AddRecipeController', [ 'RecipeService', function(RecipeService) {
+myApp.controller('AddRecipeController', [ 'RecipeService', 'LoginService', function(RecipeService, LoginService) {
   console.log('AddRecipeController created');
   var self = this;
 
@@ -6,6 +6,11 @@ myApp.controller('AddRecipeController', [ 'RecipeService', function(RecipeServic
 
   self.createRecipe = function(recipeName, ingredients) {
     RecipeService.createRecipe(recipeName, ingredients);
+  };
+
+  self.logout = function() {
+    LoginService.logout();
+    RecipeService.userRecipes.list = [];
   };
 
 
