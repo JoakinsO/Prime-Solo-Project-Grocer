@@ -17,10 +17,11 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
   };
 
   self.clearRecipes = function() {
-    self.refrigerator = [];
-    self.freezer = [];
-    self.pantry = [];
-    self.addedRecipes = [];
+    self.ingredients.length = 0;
+    self.refrigerator.length = 0;
+    self.freezer.length = 0;
+    self.pantry.length = 0;
+    self.addedRecipes.length = 0;
   };
 
   self.addRecipesToList = function(recipe) {
