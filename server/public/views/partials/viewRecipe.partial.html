@@ -1,0 +1,34 @@
+<div id="singleRecipeModal">
+  <md-dialog aria-label="Register New User">
+    <form ng-cloak>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>{{vm.singleRecipe.recipeName}}</h2>
+          <span flex></span>
+        </div>
+      </md-toolbar>
+      <md-dialog-content>
+        <div class="md-dialog-content">
+          <h3>Ingredients</h3>
+          <ul ng-repeat="ingredient in vm.singleRecipe.ingredients">
+            <h4>{{ingredient.ingredientName}}</h4>
+            <li>
+              Category: {{ingredient.category}}
+            </li>
+            <li>
+              Measurement: {{ingredient.quantity}} {{ingredient.measurement}}
+            </li>
+          </ul>
+        </div>
+      </md-dialog-content>
+      <md-dialog-actions layout="row">
+        <md-button ng-click="vm.answer(vm.singleRecipe)">
+         Edit
+        </md-button>
+        <md-button ng-click="vm.cancel()">
+         Close
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>
+</div>

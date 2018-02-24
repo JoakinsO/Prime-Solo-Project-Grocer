@@ -1,0 +1,37 @@
+{
+  "name": "prime-solo-project-grocer",
+  "version": "1.0.0",
+  "description": "One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Philip-Owen/Prime-Solo-Project-Grocer.git"
+  },
+  "author": "Phil Owen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Philip-Owen/Prime-Solo-Project-Grocer/issues"
+  },
+  "homepage": "https://github.com/Philip-Owen/Prime-Solo-Project-Grocer#readme",
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-animate": "^1.6.9",
+    "angular-aria": "^1.6.9",
+    "angular-material": "^1.1.7",
+    "angular-messages": "^1.6.9",
+    "angular-route": "^1.6.9",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^5.0.0",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "mathjs": "^3.20.2",
+    "mongoose": "^5.0.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}

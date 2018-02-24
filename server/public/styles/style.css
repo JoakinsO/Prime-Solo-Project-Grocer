@@ -1,0 +1,247 @@
+html, body {
+  background-color: #F0F0F1;
+  font-family: 'Open Sans', sans-serif;
+  color: #1A2A40;
+}
+
+md-nav-bar.md-default-theme md-nav-ink-bar, md-nav-bar md-nav-ink-bar {
+    /* color: rgb(240, 224, 9); */
+    background: rgb(240, 224, 9);
+}
+
+md-nav-bar.md-default-theme .md-button._md-nav-button.md-unselected, md-nav-bar .md-button._md-nav-button.md-unselected {
+    color: #EBF4F7;
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+  background-color: #F2A30F;
+  color: #1A2A40;
+}
+
+md-dialog.md-default-theme, md-dialog {
+  color: #1A2A40;
+  background-color: #F0F0F1;
+}
+
+/* CLASSES */
+
+md-input-container.md-default-theme .md-input, md-input-container .md-input.headerInput {
+  color: white;
+}
+
+.md-button.md-default-theme.md-warn.md-fab, .md-button.md-warn.md-fab, .md-button.md-default-theme.md-warn.md-raised, .md-button.md-warn.md-raised {
+  background-color: #E00B27;
+}
+
+.md-button.md-default-theme.md-raised:not([disabled]):hover, .md-button.md-raised:not([disabled]):hover {
+  background-color: #0c83cd;
+}
+
+.md-button.md-default-theme.md-raised, .md-button.md-raised {
+  color: #F0F0F1;
+  background-color: #2474A6;
+  font-weight: bold;
+}
+
+.title {
+  color: #EBF4F7;
+  display: inline;
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+.navigation {
+  background-color: #1A2A40;
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 240px;
+    height: 120px;
+    margin: 20px;
+    text-align: center;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.titleUnderline {
+  text-decoration: underline;
+}
+
+.selectAlignment {
+  margin-bottom: 24px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.inputAlignment {
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.ingredientDiv {
+  margin-top: 40px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.buttonDiv {
+  position: relative;
+  bottom: 0;
+}
+
+.md-button.recipeView {
+  width: 50%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background-color: #f0f0f1;
+  color: #2474A6;
+  box-shadow: none;
+}
+
+.md-button.md-raised:not([disabled]).recipeView {
+  box-shadow: none;
+}
+
+.md-button.md-raised:not([disabled]).recipeRemove {
+  box-shadow: none;
+}
+
+.md-button.md-raised:not([disabled]).md-focused.btnFocus {
+  background-color: #3d92c7;
+}
+
+.md-button.md-raised:not([disabled]).md-focused.btnFocusWhite {
+  background-color: #F0F0F1;
+}
+
+.md-button.md-warn.md-raised:not([disabled]):hover.recipeRemove,
+.md-button.md-raised:not([disabled]):hover.recipeView {
+  background-color: #f0f0f1;
+}
+
+.md-button:not([disabled]).md-raised.md-focused.btnFocusWhite {
+  box-shadow: none;
+}
+
+.md-button.md-warn.recipeRemove {
+  width: 50%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background-color: #f0f0f1;
+  color: #E00B27;
+  border: none;
+}
+
+.headerLabel {
+  color: white;
+}
+/* IDs */
+
+#loginAlert {
+  text-align: center;
+}
+
+#loginBar {
+  padding: 16px;
+  background-color: #1A2A40;
+  color: #F0F0F1;
+}
+
+#registerDialog {
+  width: 600px;
+  height: 400px;
+}
+
+#singleRecipeModal {
+  width: 70%;
+  height: 75%;
+}
+
+#groceryList {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#homeView {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#ingredientView {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#addRecipesList {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#recipeSelect {
+  width: 350px;
+}
+
+#addIngredientsChips {
+  background-color: #F0F0F1;
+}
+
+#submitRecipeBtn {
+  margin-top: 10px;
+}
+
+#addRecipeTitle {
+  margin-bottom: 5px;
+}
+
+#addButtonColor {
+  background-color: #2474A6;
+}
+
+#appTitle {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+#loginInputs {
+  margin-top: 10px;
+}
+
+#passLabel, #userLabel {
+  color: white;
+}
+
+#backgroundImage {
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+  filter: grayscale(75%);
+}

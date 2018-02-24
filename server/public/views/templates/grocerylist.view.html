@@ -1,0 +1,53 @@
+<header ng-include="'/views/partials/nav.html'"></header>
+
+<main id="groceryList">
+  <h1 class="titleUnderline">Grocery List</h1>
+  <div layout="row" layout-xs="column" layout-sm="column">
+    <div flex>
+      <p>Select recipes from the list below to populate the shopping list.</p>
+      <md-input-container id="recipeSelect" flex-gt-sm="">
+        <label>Select A Recipe</label>
+        <md-select ng-model="user.state">
+          <md-option ng-repeat="value in vm.recipeList.list" ng-value="value">
+            {{value.recipeName}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-button class="md-raised btnFocus" ng-click="vm.addRecipesToList(user.state)">Add Recipes</md-button>
+      <md-button class="md-raised btnFocus" ng-click="vm.clearRecipes()">Clear Recipes</md-button>
+      <h3 class="titleUnderline">Recipes Added:</h3>
+      <p ng-repeat="recipe in vm.addedRecipes">{{recipe}}</p>
+    </div>
+    <div flex>
+      <div>
+        <h2 class="titleUnderline">Shopping List</h2>
+        <div layout="row" layout-sm="column" layout-xs="column">
+          <div flex>
+            <h4 ng-if="vm.refrigerator.length >= 1">Refrigerator</h4>
+            <p ng-repeat="ingredient in vm.refrigerator">
+              {{ingredient.ingredientName}}
+              {{ingredient.quantity}}
+              {{ingredient.measurement}}
+            </p>
+          </div>
+          <div flex>
+            <h4 ng-if="vm.freezer.length >= 1">Freezer</h4>
+            <p ng-repeat="ingredient in vm.freezer">
+              {{ingredient.ingredientName}}
+              {{ingredient.quantity}}
+              {{ingredient.measurement}}
+            </p>
+          </div >
+          <div flex>
+            <h4 ng-if="vm.pantry.length >= 1">Pantry</h4>
+            <p ng-repeat="ingredient in vm.pantry">
+              {{ingredient.ingredientName}}
+              {{ingredient.quantity}}
+              {{ingredient.measurement}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

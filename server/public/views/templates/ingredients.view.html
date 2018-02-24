@@ -1,0 +1,47 @@
+<header ng-include="'/views/partials/nav.html'"></header>
+
+<main id="ingredientView">
+  <div class="">
+    <h1 class="titleUnderline">{{vm.recipeInfo.recipeName}}</h1>
+
+  </div>
+  <div layout="row" layout-xs="column" layout-sm="column" class="ingredientDiv" ng-repeat="ingredient in vm.ingredients.list">
+    <md-input-container class="inputAlignment" flex="100">
+      <label>Ingredient Name</label>
+      <input ng-model="ingredient.ingredientName" ng-value="ingredient.ingredientName">
+    </md-input-container>
+    <md-input-container id="categorySelect" flex-gt-sm="" class="selectAlignment" flex="100">
+      <label>Select A Category</label>
+      <md-select ng-model="ingredient.category">
+        <md-option value="Refrigerator">Refrigerator</md-option>
+        <md-option value="Freezer">Freezer</md-option>
+        <md-option value="Pantry">Pantry</md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container class="inputAlignment" flex="100">
+      <label>Quantity</label>
+      <input ng-model="ingredient.quantity" ng-model='ingredient.quantity'>
+    </md-input-container>
+    <md-input-container id="measurementSelect" flex-gt-sm="" class="selectAlignment" flex="100">
+      <label>Select A Category</label>
+      <md-select ng-model="ingredient.measurement">
+        <md-option value="">Measurement</md-option>
+        <md-option value="tsp-fl">Tsp-fl</md-option>
+        <md-option value="tbsp-fl">Tbsp-fl</md-option>
+        <md-option value="cup-fl">Cup-fl</md-option>
+        <md-option value="tsp">Tsp</md-option>
+        <md-option value="tbsp">Tbsp</md-option>
+        <md-option value="cup">Cup</md-option>
+        <md-option value="floz">Fl-oz</md-option>
+        <md-option value="oz">Oz</md-option>
+        <md-option value="lbs">Lbs</md-option>
+        <md-option value="Item">Whole Item</md-option>
+      </md-select>
+    </md-input-container>
+    <md-button class="md-raised md-warn" ng-click="vm.removeIngredient($index)" flex="100">Remove</md-button>
+  </div>
+  <div layout="row" layout-xs="column" >
+    <md-button class="md-raised btnFocus" ng-click="vm.addSingleIngredient()" flex-sm="50">Add New Ingredient</md-button>
+    <md-button class="md-raised btnFocus" ng-click="vm.addIngredients(vm.ingredients)" flex-sm="50">Submit Ingredients</md-button>
+  </div>
+</main>
