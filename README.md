@@ -4,7 +4,14 @@ One Paragraph of project description goes here. Link to the live version of the 
 
 ## Built With
 
-List technologies and frameworks here
+HTML/CSS
+JavaScript
+MEAN Stack
+- MongoDB
+- Express.js
+- AngularJS
+- Node.js
+Quantities.js
 
 ## Getting Started
 
@@ -15,8 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
-
+- [MongoDB](https://www.mongodb.com/)
 
 ### Installing
 
@@ -26,32 +32,27 @@ Steps to get the development environment running.
 
 Include one or two screen shots of your project here (optional). Remove if unused.
 
-## Documentation
-
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
 
 ### Completed Features
 
 High level list of items completed.
 
-- [x] Feature a
-- [x] Feature b
+- [x] Create recipes.
+- [x] Add ingredients to recipes.
+- [x] Update ingredients in recipes.
+- [x] Delete recipes.
+- [x] Add recipe ingredients to shopping list.
+- [x] Consolidate like ingredients in shopping list.
+
 
 ### Next Steps
 
 Features that you would like to add at some point in the future.
 
-- [ ] Feature c
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+- [ ] Add a 'Pantry' feature that allows users to add ingredients they have at home.
+- [ ] Check shopping lists against users pantry to remove any ingredients the user already has.
 
 ## Authors
 
-* Name of author(s)
+* Philip Owen
 
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
