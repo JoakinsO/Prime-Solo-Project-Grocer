@@ -3,6 +3,10 @@
 <main id="ingredientView">
   <div class="">
     <h1 class="titleUnderline">{{vm.recipeInfo.recipeName}}</h1>
+    <h4>For Quantities, please use the decimal equivalent for fractions.
+      <br>
+      Measurements are avaliable for both fluids and solids. Fluid measurements are denoted with 'fl'.
+    </h4>
 
   </div>
   <div layout="row" layout-xs="column" layout-sm="column" class="ingredientDiv" ng-repeat="ingredient in vm.ingredients.list">
@@ -23,9 +27,8 @@
       <input ng-model="ingredient.quantity" ng-model='ingredient.quantity'>
     </md-input-container>
     <md-input-container id="measurementSelect" flex-gt-sm="" class="selectAlignment" flex="100">
-      <label>Select A Category</label>
+      <label>Select A Measurement</label>
       <md-select ng-model="ingredient.measurement">
-        <md-option value="">Measurement</md-option>
         <md-option value="tsp-fl">Tsp-fl</md-option>
         <md-option value="tbsp-fl">Tbsp-fl</md-option>
         <md-option value="cup-fl">Cup-fl</md-option>
