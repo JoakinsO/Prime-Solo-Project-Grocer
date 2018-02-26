@@ -13,6 +13,7 @@
       <div id="addIngredientsChips">
         <h2 class="titleUnderline">Ingredient List</h2>
         <p>Type an ingredient name below and press the enter key. Once you are finished press the 'Create Recipe' button.</p>
+        <p>Please keep naming conventions consistent. This will help with ingredient consolidation when creating a shoping list.</p>
         <md-chips ng-model="vm.ingredients" readonly="vm.readonly" md-removable="vm.removable" placeholder="Add ingredient names..."></md-chips>
       </div>
       <md-button class="md-raised btnFocus" id="submitRecipeBtn" ng-click="vm.createRecipe(vm.recipeName,vm.ingredients)">Create Recipe</md-button>
