@@ -16,7 +16,7 @@
   };
 
   self.addSingleIngredient = function() {
-    self.ingredients.list.push(new RecipeService.IngredientClass(''));
+    self.ingredients.list.push(new Ingredient(''));
   };
 
   self.removeIngredient = function(ingredientIndex) {
