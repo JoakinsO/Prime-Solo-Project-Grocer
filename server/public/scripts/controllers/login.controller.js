@@ -13,11 +13,9 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
 
 
     self.login = function (userCreds) {
-      console.log('login function');
       if (self.user.username === '' || self.user.password === '') {
         self.loginAlert = true;
       } else {
-        console.log('sending to server...');
         $http.post('/api/user/login', userCreds).then(
           function (response) {
             if (response.status == 200) {
@@ -38,7 +36,6 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
     };
 
     self.registerUser = function (newUser) {
-      console.log(newUser);
       if (newUser == undefined || newUser.username === '' || newUser.password === '') {
         self.message = "Choose a username and password!";
       } else {
@@ -85,7 +82,6 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
       };
 
       self.answer = function (answer) {
-        console.log('answer', answer);
         if(answer.hasOwnProperty('username') && answer.hasOwnProperty('password')) {
           if (answer.username === '' || answer.password === '') {
             self.registerAlert = true;

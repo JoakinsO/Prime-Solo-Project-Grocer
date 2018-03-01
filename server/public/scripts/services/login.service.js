@@ -6,7 +6,6 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
   self.message = '';
 
   self.login = function (userCreds) {
-      console.log('sending to server...', userCreds);
       $http.post('/api/user/login', userCreds).then(
         function (response) {
           if (response.status == 200) {
@@ -25,7 +24,6 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
   };
 
   self.registerUser = function (newUserCreds) {
-      console.log('sending to server...', newUserCreds);
       $http.post('/api/user/register', newUserCreds).then(function (response) {
         console.log('success');
       },
@@ -36,7 +34,6 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
   };
 
   self.getuser = function(){
-    console.log('LoginService -- getuser');
     $http.get('/api/user').then(function(response) {
         if(response.data.username) {
             // user has a curret session on the server
@@ -54,7 +51,6 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
   };
 
   self.logout = function() {
-    console.log('LoginService -- logout');
     $http.get('/api/user/logout').then(function(response) {
       console.log('LoginService -- logout -- logged out');
       $location.path("/login");

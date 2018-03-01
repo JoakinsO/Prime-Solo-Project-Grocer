@@ -27,7 +27,7 @@ myApp.controller('HomeController', ['RecipeService', 'LoginService', '$mdDialog'
   };
 
   self.editRecipe = function(recipe) {
-    console.log('edit', recipe);
+
     RecipeService.editRecipe(recipe);
   };
 
@@ -44,7 +44,6 @@ myApp.controller('HomeController', ['RecipeService', 'LoginService', '$mdDialog'
         self.editRecipe(answer);
       }, function () {
         self.status = 'You cancelled the dialog.';
-        console.log(self.status);
       });
   };
 
@@ -62,7 +61,6 @@ myApp.controller('HomeController', ['RecipeService', 'LoginService', '$mdDialog'
     };
 
     self.answer = function (answer) {
-      console.log('in recipe controller', self.singleRecipe);
       $mdDialog.hide(answer);
     };
   }

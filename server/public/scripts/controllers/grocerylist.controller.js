@@ -25,40 +25,31 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
   };
 
   self.addRecipesToList = function(recipe) {
-    console.log(recipe);
     self.addedRecipes.push(recipe.recipeName);
 
     // adding ingredients to master list
     for (var i = 0; i < recipe.ingredients.length; i++) {
       self.ingredients.push(Object.assign({}, recipe.ingredients[i]));
     }
-    // console.log('Original Array of ingredients', self.ingredients);
 
     let sortedIngredients = sortCategories(self.ingredients);
-    // console.log('Sorted to categories(fridge)', sortedIngredients.refrigerator);
 
     let sortedFridgeNoDuplicates = removeDups(sortedIngredients.refrigerator, 'ingredientName');
     let sortedFreezerNoDuplicates = removeDups(sortedIngredients.freezer, 'ingredientName');
     let sortedPantryNoDuplicates = removeDups(sortedIngredients.pantry, 'ingredientName');
-    // console.log('Fridge no duplicates', sortedFridgeNoDuplicates);
 
     let sortedFridgeByIngName = sortByProp(sortedIngredients.refrigerator, sortedFridgeNoDuplicates, 'ingredientName');
     let sortedFreezerByIngName = sortByProp(sortedIngredients.freezer, sortedFreezerNoDuplicates, 'ingredientName');
     let sortedPantryByIngName = sortByProp(sortedIngredients.pantry, sortedPantryNoDuplicates, 'ingredientName');
-    // console.log('ingredients sorted by name', sortedFridgeByIngName);
 
     let fridgeMeasurementsNoDuplicates= getMeasurements(sortedFridgeByIngName);
     let freezerMeasurementsNoDuplicates= getMeasurements(sortedFreezerByIngName);
     let pantryMeasurementsNoDuplicates= getMeasurements(sortedPantryByIngName);
-    // console.log('Measurement sort ',fridgeMeasurementsNoDuplicates);
 
     let fridgeQuantities = calculateQuantities(fridgeMeasurementsNoDuplicates.sortedMeasurements, fridgeMeasurementsNoDuplicates.noDuplicates);
     let freezerQuantities = calculateQuantities(freezerMeasurementsNoDuplicates.sortedMeasurements, freezerMeasurementsNoDuplicates.noDuplicates);
     let pantryQuantities = calculateQuantities(pantryMeasurementsNoDuplicates.sortedMeasurements, pantryMeasurementsNoDuplicates.noDuplicates);
 
-    // console.log('fridge ', self.refrigerator);
-    // console.log(self.freezer);
-    // console.log(self.pantry);
 
     let fridgeQtyNoDups = removeDups(fridgeQuantities, 'ingredientName');
     let freezerQtyNoDups = removeDups(freezerQuantities, 'ingredientName');
@@ -78,11 +69,9 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
 
 
 
-    console.log('sort fridge', sortFridgeQty);
     let finalFridge = calculateQuantities(finalFridgeMeasurements.sortedMeasurements, finalFridgeMeasurements.noDuplicates);
     let finalFreezer = calculateQuantities(finalFreezereMeasurements.sortedMeasurements, finalFreezereMeasurements.noDuplicates);
     let finalPantry = calculateQuantities(finalPantryMeasurements.sortedMeasurements, finalPantryMeasurements.noDuplicates);
-    console.log(finalFridge);
 
     fractionizer(finalFridge);
     fractionizer(finalFreezer);
@@ -130,22 +119,16 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
 
     for (let i = 0; i < originalArray.length; i++) {
       noDuplicates.push(removeDups(originalArray[i], 'measurement'));
-      // console.log(originalArray[i]);
     }
-    // console.log('in getMeasurements( originalArray)', originalArray);
-    // console.log('in getMeasurements() noDups', noDuplicates);
 
     for (var i = 0; i < noDuplicates.length; i++) {
       sortedMeasurements.push(sortByProp(originalArray[i], noDuplicates[i], 'measurement'));
     }
-    // console.log('Sorted by measurement', sortedMeasurements);
-    // addQuantities(sortedMeasurements);
 
     let sorted = {
       sortedMeasurements: unNestArray(sortedMeasurements),
       noDuplicates: unNestArray(noDuplicates)
     };
-    // console.log(sorted);
 
     return sorted;
   } // end getMeasurements()
@@ -155,15 +138,12 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
   // begin calculateQuantities()
   function calculateQuantities(originalArray, noDuplicates) {
     let arrayCopy = [];
-    // console.log(noDuplicates);
-    // console.log(originalArray);
 
     for (var i = 0; i < noDuplicates.length; i++) {
       arrayCopy.push(Object.assign({}, noDuplicates[i]));
       let newQuantity = originalArray[i].reduce((x, y) => ({quantity: x.quantity + y.quantity}));
       arrayCopy[i].quantity = newQuantity.quantity;
     }
-    // console.log('array copy',arrayCopy);
     return arrayCopy;
   } // end calculateQuantities()
 
@@ -257,7 +237,6 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
     } else if ( array.find((elem) => elem.measurement == 'tsp-fl') != undefined) {
       for (let i = 0; i < array.length; i++) {
         let newMeasurement = array[i].measurement.split('-');
-        console.log(newMeasurement);
         if (array[i].measurement.split('-').length == 2) {
           if (Qty(newMeasurement[0]).isCompatible('tbsp')) {
             if (array[i].quantity >= 3) {
@@ -273,7 +252,6 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
 
 
   function fractionizer(array) {
-    console.log('in fractionizer()', array);
     for (var i = 0; i < array.length; i++) {
       if (array[i].quantity < 1) {
         if (array[i].quantity > 0.75) {
