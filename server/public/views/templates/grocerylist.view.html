@@ -13,10 +13,10 @@
           </md-option>
         </md-select>
       </md-input-container>
-      <md-button class="md-raised btnFocus" ng-click="vm.addRecipesToList(user.state)">Add Recipes</md-button>
+      <md-button class="md-raised btnFocus" ng-click="vm.addRecipesToList(user.state)">Add Recipe</md-button>
       <md-button class="md-raised btnFocus" ng-click="vm.clearRecipes()">Clear Recipes</md-button>
       <h3 class="titleUnderline">Recipes Added:</h3>
-      <p ng-repeat="recipe in vm.addedRecipes">{{recipe}}</p>
+      <p ng-repeat="recipe in vm.addedRecipes track by $index">{{recipe}}</p>
     </div>
     <div flex>
       <div>

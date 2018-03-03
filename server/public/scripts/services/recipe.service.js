@@ -45,7 +45,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   self.getRecipesFromUser = function() {
     $http.get('/recipes')
       .then(function(results) {
-        console.log('recipes :', results.data);
+        // console.log('recipes :', results.data);
         self.userRecipes.list = Object.assign({}, results.data);
       })
       .catch(function(error) {

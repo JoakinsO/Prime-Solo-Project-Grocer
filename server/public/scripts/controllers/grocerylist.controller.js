@@ -26,6 +26,7 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
 
   self.addRecipesToList = function(recipe) {
     self.addedRecipes.push(recipe.recipeName);
+    console.log(self.addedRecipes);
 
     // adding ingredients to master list
     for (var i = 0; i < recipe.ingredients.length; i++) {
