@@ -24,6 +24,14 @@ Link to software that is required to install the app (e.g. node).
 - [Node.js](https://nodejs.org/en/)
 - [MongoDB](https://www.mongodb.com/)
 
+
+## Screen Shot
+
+![Home](images/home.png)
+![Add Recipes](images/addRecipe.png)
+![Ingredients](images/ingredients.png)
+![Grocery List](images/groceryList.png)
+
 ### Completed Features
 
 High level list of items completed.
