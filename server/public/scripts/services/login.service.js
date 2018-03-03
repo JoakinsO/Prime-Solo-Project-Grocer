@@ -3,23 +3,23 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
   var self = this;
   self.userObject = {};
 
-  self.message = '';
+  self.loginAlert = '';
 
   self.login = function (userCreds) {
       $http.post('/api/user/login', userCreds).then(
         function (response) {
           if (response.status == 200) {
             console.log('success: ', response.data);
-            // location works with SPA (ng-route)
             $location.path('/home');
           } else {
+            swal('Please try again!', 'You have entered an invalid username or password.');
             console.log('failure error: ', response);
-            self.message = "Incorrect credentials. Please try again.";
+
           }
         },
         function (response) {
+          swal('Please try again!', 'You have entered an invalid username or password.');
           console.log('failure error: ', response);
-          self.message = "Incorrect credentials. Please try again.";
         });
   };
 
@@ -30,7 +30,6 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
       },
         function (response) {
           console.log('error');
-          self.message = "Something went wrong. Please try again.";
         });
   };
 

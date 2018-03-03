@@ -2,7 +2,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', '$mdThemingProvider', function($routeProvider, $locationProvider, $mdIconProvider, $mdThemingProvider) {
-  console.log('myApp -- config');
+  // console.log('myApp -- config');
 
   $mdIconProvider
   .icon('md-close', 'img/icons/ic_close_24px.svg', 24);
