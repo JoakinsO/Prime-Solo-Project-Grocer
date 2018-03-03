@@ -25,6 +25,7 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
 
   self.registerUser = function (newUserCreds) {
       $http.post('/api/user/register', newUserCreds).then(function (response) {
+        swal('Success!', 'Please use your newly created credentials to log in!');
         console.log('success');
       },
         function (response) {
@@ -46,7 +47,7 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
         }
     },function(response){
       console.log('LoginService -- getuser -- failure: ', response);
-      $location.path("/home");
+      $location.path("/login");
     });
   };
 

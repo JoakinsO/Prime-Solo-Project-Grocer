@@ -1,6 +1,7 @@
 myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdDialog', function($http, $location, LoginService, $mdDialog) {
     console.log('LoginController created');
     var self = this;
+
     self.user = {
       username: '',
       password: ''
@@ -10,44 +11,11 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
 
     self.loginAlert = false;
 
-
-
     self.login = function (userCreds) {
       if (self.user.username === '' || self.user.password === '') {
         self.loginAlert = true;
       } else {
-        $http.post('/api/user/login', userCreds).then(
-          function (response) {
-            if (response.status == 200) {
-              console.log('success: ', response.data);
-              // location works with SPA (ng-route)
-              $location.path('/home');
-              self.loginAlert = false;
-            } else {
-              console.log('failure error: ', response);
-              self.loginAlert = true;
-            }
-          },
-          function (response) {
-            console.log('failure error: ', response);
-            self.loginAlert = true;
-          });
-      }
-    };
-
-    self.registerUser = function (newUser) {
-      if (newUser == undefined || newUser.username === '' || newUser.password === '') {
-        self.message = "Choose a username and password!";
-      } else {
-        console.log('sending to server...', newUser);
-        $http.post('/api/user/register', newUser).then(function (response) {
-          console.log('success');
-          $location.path('/login');
-        },
-          function (response) {
-            console.log('error');
-            self.message = "Something went wrong. Please try again.";
-          });
+        LoginService.login(userCreds);
       }
     };
 
@@ -61,7 +29,8 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
           clickOutsideToClose: true
         })
         .then(function (answer) {
-          self.registerUser(answer);
+          console.log(answer);
+          LoginService.registerUser(answer);
         }, function () {
           self.status = 'You cancelled the dialog.';
           console.log(self.status);
@@ -82,8 +51,9 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
       };
 
       self.answer = function (answer) {
-        if(answer.hasOwnProperty('username') && answer.hasOwnProperty('password')) {
-          if (answer.username === '' || answer.password === '') {
+        if(answer != undefined) {
+          if (answer.username === '' || answer.password === '' ||
+          answer.password == undefined || answer.username == undefined ) {
             self.registerAlert = true;
           } else {
             $mdDialog.hide(answer);
