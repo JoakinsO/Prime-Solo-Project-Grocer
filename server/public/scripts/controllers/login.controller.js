@@ -7,15 +7,14 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
       password: ''
     };
 
-    self.message = LoginService.message;
-
-    self.loginAlert = false;
+    self.loginAlert = LoginService.loginAlert;
 
     self.login = function (userCreds) {
       if (self.user.username === '' || self.user.password === '') {
-        self.loginAlert = true;
+        swal('Please try again!', 'You have entered an invalid username or password.');
       } else {
         LoginService.login(userCreds);
+        console.log(self.loginAlert);
       }
     };
 
