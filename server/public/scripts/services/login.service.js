@@ -25,7 +25,7 @@ myApp.service('LoginService', ['$http', '$location', function($http, $location){
 
   self.registerUser = function (newUserCreds) {
       $http.post('/api/user/register', newUserCreds).then(function (response) {
-        swal('Success!', 'Please use your newly created credentials to log in!');
+        swal('Success!', 'Use your new credentials to log in!');
         console.log('success');
       },
         function (response) {
