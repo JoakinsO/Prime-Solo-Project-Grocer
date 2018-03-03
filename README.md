@@ -15,7 +15,7 @@ Grocer is a grocery shopping list application that is designed to help users pre
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -24,6 +24,12 @@ Link to software that is required to install the app (e.g. node).
 - [Node.js](https://nodejs.org/en/)
 - [MongoDB](https://www.mongodb.com/)
 
+### Installing
+
+- npm install
+- Start Mongo database
+- npm start
+- localhost:5000
 
 ## Screen Shot
 
