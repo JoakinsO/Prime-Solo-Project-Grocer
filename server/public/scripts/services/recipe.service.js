@@ -12,7 +12,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
 
     $http.post('/recipes', config)
       .then(function(response){
-        console.log('recipe added: ', response.data);
+        // console.log('recipe added: ', response.data);
         self.recipeInfo = response.data;
         ingredientObjects(ingredients);
         $location.path('/ingredients');
@@ -25,7 +25,7 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   self.sendIngredients = function(ingredientsInfo) {
     $http.put('/recipes', ingredientsInfo)
         .then(function(response){
-          console.log('Added Ingredients', response);
+          // console.log('Added Ingredients', response);
           self.getRecipesFromUser();
           $location.path('/home');
         })
@@ -37,21 +37,15 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   function ingredientObjects (ingredients) {
     let newIngredientList = [];
     for (var i = 0; i < ingredients.length; i++) {
-      newIngredientList.push(new self.IngredientClass(ingredients[i]));
+      newIngredientList.push(new Ingredient(ingredients[i]));
     }
     self.ingredients.list = newIngredientList;
   }
 
-  self.IngredientClass = class Ingredient {
-    constructor(name) {
-      this.ingredientName = name;
-    }
-  };
-
   self.getRecipesFromUser = function() {
     $http.get('/recipes')
       .then(function(results) {
-        console.log('recipes :', results.data);
+        // console.log('recipes :', results.data);
         self.userRecipes.list = Object.assign({}, results.data);
       })
       .catch(function(error) {
@@ -60,7 +54,6 @@ myApp.service('RecipeService', ['$http', '$location', function($http, $location)
   };
 
   self.removeRecipe = function(recipe) {
-    console.log(recipe._id);
     $http.delete(`/recipes/${recipe._id}`)
       .then(function(response){
         console.log('removed recipe:', response);
