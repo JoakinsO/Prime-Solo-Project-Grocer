@@ -4,7 +4,8 @@
   "description": "One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,6 @@
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "mathjs": "^3.20.2",
     "mongoose": "^5.0.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
