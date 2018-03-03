@@ -9,6 +9,7 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
   self.freezer = [];
   self.pantry = [];
 
+  console.log(self.recipeList);
   RecipeService.getRecipesFromUser();
 
   self.logout = function() {
@@ -24,63 +25,133 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
     self.addedRecipes.length = 0;
   };
 
-  self.addRecipesToList = function(recipe) {
-    self.addedRecipes.push(recipe.recipeName);
-    console.log(self.addedRecipes);
-
-    // adding ingredients to master list
-    for (var i = 0; i < recipe.ingredients.length; i++) {
-      self.ingredients.push(Object.assign({}, recipe.ingredients[i]));
+  class GroceryList {
+    constructor() {
+      this.addedRecipes = [];
+      this.masterList = [];
     }
 
-    let sortedIngredients = sortCategories(self.ingredients);
+    addedRecipesList(recipeName) {
+      this.addedRecipes.push(recipeName);
+    }
 
-    let sortedFridgeNoDuplicates = removeDups(sortedIngredients.refrigerator, 'ingredientName');
-    let sortedFreezerNoDuplicates = removeDups(sortedIngredients.freezer, 'ingredientName');
-    let sortedPantryNoDuplicates = removeDups(sortedIngredients.pantry, 'ingredientName');
+    addIngredientsToMaster(recipe) {
+      for (let ingredient of recipe) {
+        this.masterList.push(Object.assign({}, ingredient));
+      }
+    }
 
-    let sortedFridgeByIngName = sortByProp(sortedIngredients.refrigerator, sortedFridgeNoDuplicates, 'ingredientName');
-    let sortedFreezerByIngName = sortByProp(sortedIngredients.freezer, sortedFreezerNoDuplicates, 'ingredientName');
-    let sortedPantryByIngName = sortByProp(sortedIngredients.pantry, sortedPantryNoDuplicates, 'ingredientName');
+    sortIngredients() {
+      for (let ingredient of this.masterList) {
+        if(ingredient.category == 'Refrigerator') {
+          self.refrigerator.ingredients.push(ingredient);
+        } else if (ingredient.category == 'Freezer') {
+          self.freezer.ingredients.push(ingredient);
+        } else if (ingredient.category == 'Pantry') {
+          self.pantry.ingredients.push(ingredient);
+        }
+      }
+    }
+  }
 
-    let fridgeMeasurementsNoDuplicates= getMeasurements(sortedFridgeByIngName);
-    let freezerMeasurementsNoDuplicates= getMeasurements(sortedFreezerByIngName);
-    let pantryMeasurementsNoDuplicates= getMeasurements(sortedPantryByIngName);
+  class IngredientCategory {
+    constructor() {
+      this.ingredients = [];
+    }
+  }
 
-    let fridgeQuantities = calculateQuantities(fridgeMeasurementsNoDuplicates.sortedMeasurements, fridgeMeasurementsNoDuplicates.noDuplicates);
-    let freezerQuantities = calculateQuantities(freezerMeasurementsNoDuplicates.sortedMeasurements, freezerMeasurementsNoDuplicates.noDuplicates);
-    let pantryQuantities = calculateQuantities(pantryMeasurementsNoDuplicates.sortedMeasurements, pantryMeasurementsNoDuplicates.noDuplicates);
+  class Refrigerator extends IngredientCategory {
+    constructor() {
+      super();
+    }
+  }
+
+  class Freezer extends IngredientCategory {
+    constructor() {
+      super();
+    }
+  }
+
+  class Pantry extends IngredientCategory {
+    constructor() {
+      super();
+    }
+  }
+
+  self.groceryList = new GroceryList();
+  self.refrigerator = new Refrigerator();
+  self.freezer = new Freezer();
+  self.pantry = new Pantry();
+
+  self.addRecipesToList = function(recipe) {
+
+    self.groceryList.addedRecipesList(recipe.recipeName);
+
+    self.groceryList.addIngredientsToMaster(recipe.ingredients);
+
+    self.groceryList.sortIngredients();
 
 
-    let fridgeQtyNoDups = removeDups(fridgeQuantities, 'ingredientName');
-    let freezerQtyNoDups = removeDups(freezerQuantities, 'ingredientName');
-    let pantryQtyNoDups = removeDups(pantryQuantities, 'ingredientName');
 
-    let sortFridgeQty = sortByProp(fridgeQuantities, fridgeQtyNoDups, 'ingredientName');
-    let sortFreezerQty = sortByProp(freezerQuantities, freezerQtyNoDups, 'ingredientName');
-    let sortPantryQty = sortByProp(pantryQuantities, pantryQtyNoDups, 'ingredientName');
-
-    addQuantities(sortFridgeQty);
-    addQuantities(sortFreezerQty);
-    addQuantities(sortPantryQty);
-
-    let finalFridgeMeasurements = getMeasurements(sortFridgeQty);
-    let finalFreezereMeasurements = getMeasurements(sortFreezerQty);
-    let finalPantryMeasurements = getMeasurements(sortPantryQty);
+    // self.addedRecipes.push(recipe.recipeName);
+    // console.log(self.addedRecipes);
+    //
+    // // adding ingredients to master list
+    // for (var i = 0; i < recipe.ingredients.length; i++) {
+    //   self.ingredients.push(Object.assign({}, recipe.ingredients[i]));
+    // }
+    //
 
 
 
-    let finalFridge = calculateQuantities(finalFridgeMeasurements.sortedMeasurements, finalFridgeMeasurements.noDuplicates);
-    let finalFreezer = calculateQuantities(finalFreezereMeasurements.sortedMeasurements, finalFreezereMeasurements.noDuplicates);
-    let finalPantry = calculateQuantities(finalPantryMeasurements.sortedMeasurements, finalPantryMeasurements.noDuplicates);
-
-    fractionizer(finalFridge);
-    fractionizer(finalFreezer);
-    fractionizer(finalPantry);
-
-    self.refrigerator = finalFridge;
-    self.freezer = finalFreezer;
-    self.pantry = finalPantry;
+    // let sortedIngredients = sortCategories(self.ingredients);
+    //
+    // let sortedFridgeNoDuplicates = removeDups(sortedIngredients.refrigerator, 'ingredientName');
+    // let sortedFreezerNoDuplicates = removeDups(sortedIngredients.freezer, 'ingredientName');
+    // let sortedPantryNoDuplicates = removeDups(sortedIngredients.pantry, 'ingredientName');
+    //
+    // let sortedFridgeByIngName = sortByProp(sortedIngredients.refrigerator, sortedFridgeNoDuplicates, 'ingredientName');
+    // let sortedFreezerByIngName = sortByProp(sortedIngredients.freezer, sortedFreezerNoDuplicates, 'ingredientName');
+    // let sortedPantryByIngName = sortByProp(sortedIngredients.pantry, sortedPantryNoDuplicates, 'ingredientName');
+    //
+    // let fridgeMeasurementsNoDuplicates= getMeasurements(sortedFridgeByIngName);
+    // let freezerMeasurementsNoDuplicates= getMeasurements(sortedFreezerByIngName);
+    // let pantryMeasurementsNoDuplicates= getMeasurements(sortedPantryByIngName);
+    //
+    // let fridgeQuantities = calculateQuantities(fridgeMeasurementsNoDuplicates.sortedMeasurements, fridgeMeasurementsNoDuplicates.noDuplicates);
+    // let freezerQuantities = calculateQuantities(freezerMeasurementsNoDuplicates.sortedMeasurements, freezerMeasurementsNoDuplicates.noDuplicates);
+    // let pantryQuantities = calculateQuantities(pantryMeasurementsNoDuplicates.sortedMeasurements, pantryMeasurementsNoDuplicates.noDuplicates);
+    //
+    //
+    // let fridgeQtyNoDups = removeDups(fridgeQuantities, 'ingredientName');
+    // let freezerQtyNoDups = removeDups(freezerQuantities, 'ingredientName');
+    // let pantryQtyNoDups = removeDups(pantryQuantities, 'ingredientName');
+    //
+    // let sortFridgeQty = sortByProp(fridgeQuantities, fridgeQtyNoDups, 'ingredientName');
+    // let sortFreezerQty = sortByProp(freezerQuantities, freezerQtyNoDups, 'ingredientName');
+    // let sortPantryQty = sortByProp(pantryQuantities, pantryQtyNoDups, 'ingredientName');
+    //
+    // addQuantities(sortFridgeQty);
+    // addQuantities(sortFreezerQty);
+    // addQuantities(sortPantryQty);
+    //
+    // let finalFridgeMeasurements = getMeasurements(sortFridgeQty);
+    // let finalFreezereMeasurements = getMeasurements(sortFreezerQty);
+    // let finalPantryMeasurements = getMeasurements(sortPantryQty);
+    //
+    //
+    //
+    // let finalFridge = calculateQuantities(finalFridgeMeasurements.sortedMeasurements, finalFridgeMeasurements.noDuplicates);
+    // let finalFreezer = calculateQuantities(finalFreezereMeasurements.sortedMeasurements, finalFreezereMeasurements.noDuplicates);
+    // let finalPantry = calculateQuantities(finalPantryMeasurements.sortedMeasurements, finalPantryMeasurements.noDuplicates);
+    //
+    // fractionizer(finalFridge);
+    // fractionizer(finalFreezer);
+    // fractionizer(finalPantry);
+    //
+    // self.refrigerator = finalFridge;
+    // self.freezer = finalFreezer;
+    // self.pantry = finalPantry;
 
   };
 
