@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const env = require('dotenv').config();
 
 const passport = require('./strategies/user.strategy');
 const sessionConfig = require('./modules/session-middleware');
