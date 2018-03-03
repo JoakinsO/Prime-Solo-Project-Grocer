@@ -30,9 +30,11 @@ app.use('/recipes', recipeRouter);
 // Serve static files
 app.use(express.static('server/public'));
 
-const PORT = process.env.PORT || 5000;
+
 
 /** Listen * */
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 });

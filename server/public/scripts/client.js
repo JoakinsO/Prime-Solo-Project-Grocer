@@ -64,11 +64,8 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', '$mdThem
       'contrastDefaultColor': 'dark'
     });
 
-    // Register the new color palette map with the name <code>neonRed</code>
     $mdThemingProvider.definePalette('darkBlue', darkBlueMap);
-    // $mdThemingProvider.definePalette('w', darkBlueMap);
 
-    // Use that theme for the primary intentions
     $mdThemingProvider.theme('default')
       .primaryPalette('darkBlue')
       .accentPalette('blue');
