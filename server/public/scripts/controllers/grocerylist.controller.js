@@ -42,6 +42,10 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
     }
 
     sortIngredients() {
+      self.refrigerator.ingredients = [];
+      self.freezer.ingredients = [];
+      self.pantry.ingredients = [];
+
       for (let ingredient of this.masterList) {
         if(ingredient.category == 'Refrigerator') {
           self.refrigerator.ingredients.push(ingredient);
@@ -52,36 +56,43 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
         }
       }
     }
+
   }
 
   class IngredientCategory {
     constructor() {
       this.ingredients = [];
+      this.duplicatesRemoved = [];
+      this.ingredientsSortedByName = [];
+      this.measurementSort = [];
     }
-  }
 
-  class Refrigerator extends IngredientCategory {
-    constructor() {
-      super();
+    refrigeratorList() {
+      this.removeDuplicates();
+      this.sortIngredientsByName();
+      this.sortIngredientsByMeasurement();
     }
-  }
 
-  class Freezer extends IngredientCategory {
-    constructor() {
-      super();
+    removeDuplicates() {
+      this.duplicatesRemoved = removeDups(this.ingredients, 'ingredientName');
     }
-  }
 
-  class Pantry extends IngredientCategory {
-    constructor() {
-      super();
+    sortIngredientsByName() {
+      this.ingredientsSortedByName = sortByProp(this.ingredients, this.duplicatesRemoved, 'ingredientName');
     }
+
+    sortIngredientsByMeasurement() {
+      this.measurementSort = getMeasurements(this.ingredientsSortedByName);
+    }
+
+
   }
 
   self.groceryList = new GroceryList();
-  self.refrigerator = new Refrigerator();
-  self.freezer = new Freezer();
-  self.pantry = new Pantry();
+  self.refrigerator = new IngredientCategory();
+  self.freezer = new IngredientCategory();
+  self.pantry = new IngredientCategory();
+
 
   self.addRecipesToList = function(recipe) {
 
@@ -91,29 +102,12 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
 
     self.groceryList.sortIngredients();
 
+    self.refrigerator.refrigeratorList();
+    console.log(self.refrigerator.duplicatesRemoved);
+    console.log(self.refrigerator.ingredientsSortedByName);
+    console.log(self.refrigerator.measurementSort);
 
 
-    // self.addedRecipes.push(recipe.recipeName);
-    // console.log(self.addedRecipes);
-    //
-    // // adding ingredients to master list
-    // for (var i = 0; i < recipe.ingredients.length; i++) {
-    //   self.ingredients.push(Object.assign({}, recipe.ingredients[i]));
-    // }
-    //
-
-
-
-    // let sortedIngredients = sortCategories(self.ingredients);
-    //
-    // let sortedFridgeNoDuplicates = removeDups(sortedIngredients.refrigerator, 'ingredientName');
-    // let sortedFreezerNoDuplicates = removeDups(sortedIngredients.freezer, 'ingredientName');
-    // let sortedPantryNoDuplicates = removeDups(sortedIngredients.pantry, 'ingredientName');
-    //
-    // let sortedFridgeByIngName = sortByProp(sortedIngredients.refrigerator, sortedFridgeNoDuplicates, 'ingredientName');
-    // let sortedFreezerByIngName = sortByProp(sortedIngredients.freezer, sortedFreezerNoDuplicates, 'ingredientName');
-    // let sortedPantryByIngName = sortByProp(sortedIngredients.pantry, sortedPantryNoDuplicates, 'ingredientName');
-    //
     // let fridgeMeasurementsNoDuplicates= getMeasurements(sortedFridgeByIngName);
     // let freezerMeasurementsNoDuplicates= getMeasurements(sortedFreezerByIngName);
     // let pantryMeasurementsNoDuplicates= getMeasurements(sortedPantryByIngName);
@@ -157,31 +151,31 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
 
   // Sorts ingredients into 3 categories
   // begin sortCategories()
-  function sortCategories(ingredientsArray) {
-    let refrigerator = [];
-    let freezer = [];
-    let pantry = [];
-
-    for (let i = 0; i < ingredientsArray.length; i++) {
-      if(ingredientsArray[i].category == 'Refrigerator') {
-        refrigerator.push(ingredientsArray[i]);
-      }
-      if(ingredientsArray[i].category == 'Freezer') {
-        freezer.push(ingredientsArray[i]);
-      }
-      if(ingredientsArray[i].category == 'Pantry') {
-        pantry.push(ingredientsArray[i]);
-      }
-    }
-
-    let sorted = {
-      refrigerator,
-      freezer,
-      pantry,
-    };
-
-    return sorted;
-  } // end sortCategories()
+  // function sortCategories(ingredientsArray) {
+  //   let refrigerator = [];
+  //   let freezer = [];
+  //   let pantry = [];
+  //
+  //   for (let i = 0; i < ingredientsArray.length; i++) {
+  //     if(ingredientsArray[i].category == 'Refrigerator') {
+  //       refrigerator.push(ingredientsArray[i]);
+  //     }
+  //     if(ingredientsArray[i].category == 'Freezer') {
+  //       freezer.push(ingredientsArray[i]);
+  //     }
+  //     if(ingredientsArray[i].category == 'Pantry') {
+  //       pantry.push(ingredientsArray[i]);
+  //     }
+  //   }
+  //
+  //   let sorted = {
+  //     refrigerator,
+  //     freezer,
+  //     pantry,
+  //   };
+  //
+  //   return sorted;
+  // } // end sortCategories()
 
   // takes in an array of ingredients and sorts them by like measurements
   // begin getMeasurements()
