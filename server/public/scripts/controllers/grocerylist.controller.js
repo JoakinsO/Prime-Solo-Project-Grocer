@@ -1,7 +1,7 @@
 myApp.controller('GroceryListController', ['RecipeService', 'LoginService', function(RecipeService, LoginService) {
-  console.log('GroceryListController created');
+  // console.log('GroceryListController created');
   var self = this;
-
+  self.groceryList = new GroceryList();
   self.recipeList = RecipeService.userRecipes;
   self.addedRecipes = [];
   self.ingredients = [];
@@ -25,332 +25,36 @@ myApp.controller('GroceryListController', ['RecipeService', 'LoginService', func
     self.addedRecipes.length = 0;
   };
 
-  class GroceryList {
-    constructor() {
-      this.addedRecipes = [];
-      this.masterList = [];
-    }
-
-    addedRecipesList(recipeName) {
-      this.addedRecipes.push(recipeName);
-    }
-
-    addIngredientsToMaster(recipe) {
-      for (let ingredient of recipe) {
-        this.masterList.push(Object.assign({}, ingredient));
-      }
-    }
-
-    sortIngredients() {
-      self.refrigerator.ingredients = [];
-      self.freezer.ingredients = [];
-      self.pantry.ingredients = [];
-
-      for (let ingredient of this.masterList) {
-        if(ingredient.category == 'Refrigerator') {
-          self.refrigerator.ingredients.push(ingredient);
-        } else if (ingredient.category == 'Freezer') {
-          self.freezer.ingredients.push(ingredient);
-        } else if (ingredient.category == 'Pantry') {
-          self.pantry.ingredients.push(ingredient);
-        }
-      }
-    }
-
-  }
-
-  class IngredientCategory {
-    constructor() {
-      this.ingredients = [];
-      this.duplicatesRemoved = [];
-      this.ingredientsSortedByName = [];
-      this.measurementSort = [];
-    }
-
-    refrigeratorList() {
-      this.removeDuplicates();
-      this.sortIngredientsByName();
-      this.sortIngredientsByMeasurement();
-    }
-
-    removeDuplicates() {
-      this.duplicatesRemoved = removeDups(this.ingredients, 'ingredientName');
-    }
-
-    sortIngredientsByName() {
-      this.ingredientsSortedByName = sortByProp(this.ingredients, this.duplicatesRemoved, 'ingredientName');
-    }
-
-    sortIngredientsByMeasurement() {
-      this.measurementSort = getMeasurements(this.ingredientsSortedByName);
-    }
-
-
-  }
-
-  self.groceryList = new GroceryList();
-  self.refrigerator = new IngredientCategory();
-  self.freezer = new IngredientCategory();
-  self.pantry = new IngredientCategory();
 
 
   self.addRecipesToList = function(recipe) {
+
+    self.refrigerator = [];
+    self.freezer = [];
+    self.pantry = [];
 
     self.groceryList.addedRecipesList(recipe.recipeName);
 
     self.groceryList.addIngredientsToMaster(recipe.ingredients);
 
-    self.groceryList.sortIngredients();
-
-    self.refrigerator.refrigeratorList();
-    console.log(self.refrigerator.duplicatesRemoved);
-    console.log(self.refrigerator.ingredientsSortedByName);
-    console.log(self.refrigerator.measurementSort);
-
-
-    // let fridgeMeasurementsNoDuplicates= getMeasurements(sortedFridgeByIngName);
-    // let freezerMeasurementsNoDuplicates= getMeasurements(sortedFreezerByIngName);
-    // let pantryMeasurementsNoDuplicates= getMeasurements(sortedPantryByIngName);
-    //
-    // let fridgeQuantities = calculateQuantities(fridgeMeasurementsNoDuplicates.sortedMeasurements, fridgeMeasurementsNoDuplicates.noDuplicates);
-    // let freezerQuantities = calculateQuantities(freezerMeasurementsNoDuplicates.sortedMeasurements, freezerMeasurementsNoDuplicates.noDuplicates);
-    // let pantryQuantities = calculateQuantities(pantryMeasurementsNoDuplicates.sortedMeasurements, pantryMeasurementsNoDuplicates.noDuplicates);
-    //
-    //
-    // let fridgeQtyNoDups = removeDups(fridgeQuantities, 'ingredientName');
-    // let freezerQtyNoDups = removeDups(freezerQuantities, 'ingredientName');
-    // let pantryQtyNoDups = removeDups(pantryQuantities, 'ingredientName');
-    //
-    // let sortFridgeQty = sortByProp(fridgeQuantities, fridgeQtyNoDups, 'ingredientName');
-    // let sortFreezerQty = sortByProp(freezerQuantities, freezerQtyNoDups, 'ingredientName');
-    // let sortPantryQty = sortByProp(pantryQuantities, pantryQtyNoDups, 'ingredientName');
-    //
-    // addQuantities(sortFridgeQty);
-    // addQuantities(sortFreezerQty);
-    // addQuantities(sortPantryQty);
-    //
-    // let finalFridgeMeasurements = getMeasurements(sortFridgeQty);
-    // let finalFreezereMeasurements = getMeasurements(sortFreezerQty);
-    // let finalPantryMeasurements = getMeasurements(sortPantryQty);
-    //
-    //
-    //
-    // let finalFridge = calculateQuantities(finalFridgeMeasurements.sortedMeasurements, finalFridgeMeasurements.noDuplicates);
-    // let finalFreezer = calculateQuantities(finalFreezereMeasurements.sortedMeasurements, finalFreezereMeasurements.noDuplicates);
-    // let finalPantry = calculateQuantities(finalPantryMeasurements.sortedMeasurements, finalPantryMeasurements.noDuplicates);
-    //
-    // fractionizer(finalFridge);
-    // fractionizer(finalFreezer);
-    // fractionizer(finalPantry);
-    //
-    // self.refrigerator = finalFridge;
-    // self.freezer = finalFreezer;
-    // self.pantry = finalPantry;
+    self.groceryList.doList();
+    console.log(self.groceryList.ingredientsFinal);
+    sortIngredients(self.groceryList.ingredientsFinal);
 
   };
 
-  // Sorts ingredients into 3 categories
-  // begin sortCategories()
-  // function sortCategories(ingredientsArray) {
-  //   let refrigerator = [];
-  //   let freezer = [];
-  //   let pantry = [];
-  //
-  //   for (let i = 0; i < ingredientsArray.length; i++) {
-  //     if(ingredientsArray[i].category == 'Refrigerator') {
-  //       refrigerator.push(ingredientsArray[i]);
-  //     }
-  //     if(ingredientsArray[i].category == 'Freezer') {
-  //       freezer.push(ingredientsArray[i]);
-  //     }
-  //     if(ingredientsArray[i].category == 'Pantry') {
-  //       pantry.push(ingredientsArray[i]);
-  //     }
-  //   }
-  //
-  //   let sorted = {
-  //     refrigerator,
-  //     freezer,
-  //     pantry,
-  //   };
-  //
-  //   return sorted;
-  // } // end sortCategories()
-
-  // takes in an array of ingredients and sorts them by like measurements
-  // begin getMeasurements()
-  function getMeasurements(originalArray) {
-    let sortedMeasurements = [];
-    let noDuplicates = [];
-
-    for (let i = 0; i < originalArray.length; i++) {
-      noDuplicates.push(removeDups(originalArray[i], 'measurement'));
-    }
-
-    for (var i = 0; i < noDuplicates.length; i++) {
-      sortedMeasurements.push(sortByProp(originalArray[i], noDuplicates[i], 'measurement'));
-    }
-
-    let sorted = {
-      sortedMeasurements: unNestArray(sortedMeasurements),
-      noDuplicates: unNestArray(noDuplicates)
-    };
-
-    return sorted;
-  } // end getMeasurements()
-
-  // takes in a master array of ingredients and an array with no duplicate objects
-  // and adds like ingredient measurements
-  // begin calculateQuantities()
-  function calculateQuantities(originalArray, noDuplicates) {
-    let arrayCopy = [];
-
-    for (var i = 0; i < noDuplicates.length; i++) {
-      arrayCopy.push(Object.assign({}, noDuplicates[i]));
-      let newQuantity = originalArray[i].reduce((x, y) => ({quantity: x.quantity + y.quantity}));
-      arrayCopy[i].quantity = newQuantity.quantity;
-    }
-    return arrayCopy;
-  } // end calculateQuantities()
-
-  function addQuantities(array) {
-    for (let i = 0; i < array.length; i++) {
-      addQuantitiesSingleArray(array[i]);
-    }
-  }
-
-  // begin addQuantities()
-  function addQuantitiesSingleArray(array) {
-    if ( array.find((elem) => elem.measurement == 'lbs') != undefined) {
-      for (let i = 0; i < array.length; i++) {
-        let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length < 2) {
-          if (Qty(array[i].measurement).isCompatible('lbs')) {
-            let newQuantity = Qty(array[i].quantity, array[i].measurement).to('lbs');
-            array[i].quantity = newQuantity.scalar;
-            array[i].measurement = 'lbs';
-          }
-        }
-      }
-    } else if ( array.find((elem) => elem.measurement == 'floz') != undefined) {
-      for (let i = 0; i < array.length; i++) {
-        let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length == 2) {
-          if (Qty(array[i].measurement).isCompatible('floz')) {
-            let newQuantity = Qty(array[i].quantity, newMeasurement[0]).to('floz');
-            array[i].quantity = newQuantity.scalar;
-            array[i].measurement = 'floz';
-          }
-        }
-      }
-    } else if ( array.find((elem) => elem.measurement == 'cup') != undefined) {
-      for (let i = 0; i < array.length; i++) {
-        let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length < 2) {
-          if (Qty(array[i].measurement).isCompatible('cup')) {
-            let newQuantity = Qty(array[i].quantity, array[i].measurement).to('cup');
-            array[i].quantity = newQuantity.scalar;
-            array[i].measurement = 'cup';
-          }
-        }
-      }
-    } else if ( array.find((elem) => elem.measurement == 'cup-fl') != undefined) {
-      for (let i = 0; i < array.length; i++) {
-        let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length == 2) {
-          if (Qty(newMeasurement[0]).isCompatible('cup')) {
-            let newQuantity = Qty(array[i].quantity, newMeasurement[0]).to('cup');
-            array[i].quantity = newQuantity.scalar;
-            array[i].measurement = 'cup-fl';
-          }
-        }
-      }
-    } else if ( array.find((elem) => elem.measurement == 'tbsp') != undefined) {
-      for (let i = 0; i < array.length; i++) {
-        let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length < 2) {
-          if (Qty(array[i].measurement).isCompatible('tbsp')) {
-            let newQuantity = Qty(array[i].quantity, array[i].measurement).to('tbsp');
-            array[i].quantity = newQuantity.scalar;
-            array[i].measurement = 'tbsp';
-          }
-        }
-      }
-    } else if ( array.find((elem) => elem.measurement == 'tbsp-fl') != undefined) {
-      for (let i = 0; i < array.length; i++) {
-        let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length == 2) {
-          if (Qty(newMeasurement[0]).isCompatible('tbsp')) {
-            let newQuantity = Qty(array[i].quantity, newMeasurement[0]).to('tbsp');
-            array[i].quantity = newQuantity.scalar;
-            array[i].measurement = 'tbsp-fl';
-          }
-        }
-      }
-    } else if ( array.find((elem) => elem.measurement == 'tsp') != undefined) {
-      for (let i = 0; i < array.length; i++) {
-        let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length < 2) {
-          if (Qty(array[i].measurement).isCompatible('tbsp')) {
-            if (array[i].quantity >= 3) {
-              let newQuantity = Qty(array[i].quantity, array[i].measurement).to('tbsp');
-              array[i].quantity = newQuantity.scalar;
-              array[i].measurement = 'tbsp';
-            }
-          }
-        }
-      }
-    } else if ( array.find((elem) => elem.measurement == 'tsp-fl') != undefined) {
-      for (let i = 0; i < array.length; i++) {
-        let newMeasurement = array[i].measurement.split('-');
-        if (array[i].measurement.split('-').length == 2) {
-          if (Qty(newMeasurement[0]).isCompatible('tbsp')) {
-            if (array[i].quantity >= 3) {
-              let newQuantity = Qty(array[i].quantity, newMeasurement[0]).to('tbsp');
-              array[i].quantity = newQuantity.scalar;
-              array[i].measurement = 'tbsp-fl';
-            }
-          }
-        }
-      }
-    }
-  } // end addQuantities()
-
-
-  function fractionizer(array) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].quantity < 1) {
-        if (array[i].quantity > 0.75) {
-          array[i].quantity = Math.ceil(array[i].quantity);
-        } else if (array[i].quantity <= 0.75 && array[i].quantity > 0.50) {
-          array[i].quantity = '3/4';
-        } else if (array[i].quantity <= 0.50 && array[i].quantity > 0.33) {
-          array[i].quantity = '1/2';
-        } else if (array[i].quantity <= 0.33 && array[i].quantity > 0.25) {
-          array[i].quantity = '1/3';
-        } else if (array[i].quantity <= 0.25) {
-          array[i].quantity = '1/4';
-        }
-      } else if (array[i].quantity >= 1) {
-        if (array[i].quantity % 1 != 0) {
-          if ((array[i].quantity % 1) > 0.75) {
-            array[i].quantity = Math.ceil(array[i].quantity);
-          } else if (array[i].quantity % 1 <= 0.75 && array[i].quantity % 1 > 0.50) {
-            array[i].quantity = Math.floor(array[i].quantity);
-            array[i].quantity += ' 3/4';
-          } else if (array[i].quantity % 1 <= 0.50 && array[i].quantity % 1 > 0.33) {
-            array[i].quantity = Math.floor(array[i].quantity);
-            array[i].quantity += ' 1/2';
-          } else if (array[i].quantity % 1 <= 0.33 && array[i].quantity % 1 > 0.25) {
-            array[i].quantity = Math.floor(array[i].quantity);
-            array[i].quantity += ' 1/3';
-          } else if (array[i].quantity % 1 <= 0.25) {
-            array[i].quantity = Math.floor(array[i].quantity);
-            array[i].quantity += ' 1/4';
-          }
-        }
+  function sortIngredients(ingredientArray) {
+    console.log('in sort', ingredientArray);
+    for (let ingredient of ingredientArray) {
+      if(ingredient.category == 'Refrigerator') {
+        self.refrigerator.push(ingredient);
+      } else if (ingredient.category == 'Freezer') {
+        self.freezer.push(ingredient);
+      } else if (ingredient.category == 'Pantry') {
+        self.pantry.push(ingredient);
       }
     }
   }
+
 
 }]);

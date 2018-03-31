@@ -26,3 +26,39 @@ function sortByProp(originalArray, noDuplicates, property) {
   }
   return sortedArray;
 } // end sortByProp()
+
+function fractionizer(array) {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i].quantity < 1) {
+      if (array[i].quantity > 0.75) {
+        array[i].quantity = Math.ceil(array[i].quantity);
+      } else if (array[i].quantity <= 0.75 && array[i].quantity > 0.50) {
+        array[i].quantity = '3/4';
+      } else if (array[i].quantity <= 0.50 && array[i].quantity > 0.33) {
+        array[i].quantity = '1/2';
+      } else if (array[i].quantity <= 0.33 && array[i].quantity > 0.25) {
+        array[i].quantity = '1/3';
+      } else if (array[i].quantity <= 0.25) {
+        array[i].quantity = '1/4';
+      }
+    } else if (array[i].quantity >= 1) {
+      if (array[i].quantity % 1 != 0) {
+        if ((array[i].quantity % 1) > 0.75) {
+          array[i].quantity = Math.ceil(array[i].quantity);
+        } else if (array[i].quantity % 1 <= 0.75 && array[i].quantity % 1 > 0.50) {
+          array[i].quantity = Math.floor(array[i].quantity);
+          array[i].quantity += ' 3/4';
+        } else if (array[i].quantity % 1 <= 0.50 && array[i].quantity % 1 > 0.33) {
+          array[i].quantity = Math.floor(array[i].quantity);
+          array[i].quantity += ' 1/2';
+        } else if (array[i].quantity % 1 <= 0.33 && array[i].quantity % 1 > 0.25) {
+          array[i].quantity = Math.floor(array[i].quantity);
+          array[i].quantity += ' 1/3';
+        } else if (array[i].quantity % 1 <= 0.25) {
+          array[i].quantity = Math.floor(array[i].quantity);
+          array[i].quantity += ' 1/4';
+        }
+      }
+    }
+  }
+}
