@@ -16,34 +16,31 @@
       <md-button class="md-raised btnFocus" ng-click="vm.addRecipesToList(user.state)">Add Recipe</md-button>
       <md-button class="md-raised btnFocus" ng-click="vm.clearRecipes()">Clear Recipes</md-button>
       <h3 class="titleUnderline">Recipes Added:</h3>
-      <p ng-repeat="recipe in vm.addedRecipes track by $index">{{recipe}}</p>
+      <p ng-repeat="recipe in vm.addedRecipes.list track by $index">{{recipe}}</p>
     </div>
     <div flex>
       <div>
         <h2 class="titleUnderline">Shopping List</h2>
         <div layout="row" layout-sm="column" layout-xs="column">
           <div flex>
-            <h4 ng-if="vm.refrigerator.length >= 1">Refrigerator</h4>
-            <p ng-repeat="ingredient in vm.refrigerator">
-              {{ingredient.ingredientName}}
-              {{ingredient.quantity}}
-              {{ingredient.measurement}}
+            <h4 ng-if="vm.refrigerator.list.length >= 1">Refrigerator</h4>
+            <p ng-repeat="ingredient in vm.refrigerator.list">
+              <span ng-if="ingredient.measurement != 'Item'">{{ingredient.quantity}} {{ingredient.measurement}} {{ingredient.ingredientName}}</span>
+              <span ng-if="ingredient.measurement === 'Item'">{{ingredient.quantity}} {{ingredient.ingredientName}}</span>
             </p>
           </div>
           <div flex>
-            <h4 ng-if="vm.freezer.length >= 1">Freezer</h4>
-            <p ng-repeat="ingredient in vm.freezer">
-              {{ingredient.ingredientName}}
-              {{ingredient.quantity}}
-              {{ingredient.measurement}}
+            <h4 ng-if="vm.freezer.list.length >= 1">Freezer</h4>
+            <p ng-repeat="ingredient in vm.freezer.list">
+              <span ng-if="ingredient.measurement != 'Item'">{{ingredient.quantity}} {{ingredient.measurement}} {{ingredient.ingredientName}}</span>
+              <span ng-if="ingredient.measurement === 'Item'">{{ingredient.quantity}} {{ingredient.ingredientName}}</span>
             </p>
           </div >
           <div flex>
-            <h4 ng-if="vm.pantry.length >= 1">Pantry</h4>
-            <p ng-repeat="ingredient in vm.pantry">
-              {{ingredient.ingredientName}}
-              {{ingredient.quantity}}
-              {{ingredient.measurement}}
+            <h4 ng-if="vm.pantry.list.length >= 1">Pantry</h4>
+            <p ng-repeat="ingredient in vm.pantry.list">
+              <span ng-if="ingredient.measurement != 'Item'">{{ingredient.quantity}} {{ingredient.measurement}} {{ingredient.ingredientName}}</span>
+              <span ng-if="ingredient.measurement === 'Item'">{{ingredient.quantity}} {{ingredient.ingredientName}}</span>
             </p>
           </div>
         </div>

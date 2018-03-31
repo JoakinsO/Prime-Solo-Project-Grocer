@@ -34,8 +34,6 @@ class GroceryList {
     this.addIngreients();
     this.getSecondMeasurements();
     this.getFinalQuantities();
-
-
   }
 
   sortListNoDuplicates() {
@@ -73,6 +71,21 @@ class GroceryList {
   getFinalQuantities() {
     this.ingredientsFinal = this.calculateQuantities(this.measurementSort.measurements, this.measurementSort.noDuplicates);
     fractionizer(this.ingredientsFinal);
+  }
+
+  clearGroceryList() {
+    this.addedRecipes = [];
+    this.masterList = [];
+    this.noDuplicates = [];
+    this.nameSort = [];
+    this.measurementSort = [];
+    this.quantities = [];
+    this.quantitiesNoDuplicates = [];
+    this.quantitiesSorted = [];
+    this.ingredientsFinal = [];
+    this.pantry = [];
+    this.freezer = [];
+    this.refrigerator =[];
   }
 
 
