@@ -51,4 +51,8 @@ myApp.service('GroceryListService', ['RecipeService', function(RecipeService){
     }
   }
 
+  self.createList = function() {
+    console.log(self.groceryList.ingredientsFinal);
+  };
+
 }]);

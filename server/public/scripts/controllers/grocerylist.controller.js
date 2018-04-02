@@ -21,4 +21,8 @@ myApp.controller('GroceryListController', ['GroceryListService', 'RecipeService'
     GroceryListService.addRecipesToList(recipe);
   };
 
+  self.createList = function() {
+    GroceryListService.createList();
+  };
+
 }]);

@@ -15,6 +15,7 @@
       </md-input-container>
       <md-button class="md-raised btnFocus" ng-click="vm.addRecipesToList(user.state)">Add Recipe</md-button>
       <md-button class="md-raised btnFocus" ng-click="vm.clearRecipes()">Clear Recipes</md-button>
+      <md-button class="md-raised btnFocus" ng-click="vm.createList()">Create List</md-button>
       <h3 class="titleUnderline">Recipes Added:</h3>
       <p ng-repeat="recipe in vm.addedRecipes.list track by $index">{{recipe}}</p>
     </div>
