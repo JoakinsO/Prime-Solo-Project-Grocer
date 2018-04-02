@@ -59,11 +59,7 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdIconProvider', '$mdThem
       '500': '#1A2A40',
       'contrastDefaultColor': 'dark'
     });
-    var whiteMap = $mdThemingProvider.extendPalette('pink', {
-      '500': 'F0F0F1',
-      'contrastDefaultColor': 'dark'
-    });
-
+    
     $mdThemingProvider.definePalette('darkBlue', darkBlueMap);
 
     $mdThemingProvider.theme('default')
