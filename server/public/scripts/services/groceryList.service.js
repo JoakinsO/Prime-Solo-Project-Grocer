@@ -1,12 +1,15 @@
-myApp.service('GroceryListService', ['RecipeService', function(RecipeService){
+myApp.service('GroceryListService', ['RecipeService', '$http', function(RecipeService, $http){
   var self = this;
 
   self.groceryList = new GroceryList();
+  self.userList = {list: []};
   self.recipeList = RecipeService.userRecipes;
   self.addedRecipes = {list: []};
   self.refrigerator = {list: []};
   self.freezer = {list: []};
   self.pantry = {list: []};
+
+  self.listToggle = false;
 
   RecipeService.getRecipesFromUser();
 
@@ -39,6 +42,37 @@ myApp.service('GroceryListService', ['RecipeService', function(RecipeService){
     self.addedRecipes.list = self.groceryList.addedRecipes;
   };
 
+  self.createList = function() {
+    let ingredients = self.groceryList.ingredientsFinal;
+    let newList = {
+      name: 'New List',
+      ingredients,
+    };
+
+    $http.post('/groceryList', newList)
+      .then( function(response){
+        console.log(response);
+      });
+  };
+
+  self.getUserList = function() {
+    $http.get('/groceryList')
+      .then( function(response){
+        console.log(response.data);
+        if(response.data.length > 0) {
+          self.userList.list = response.data[0].ingredients;
+          sortIngredients(self.userList.list);
+        }
+      });
+  };
+
+  self.inCart = function(ingredient) {
+    $http.put('/groceryList', ingredient)
+      .then( function(response) {
+        console.log(response);
+      });
+  };
+
   function sortIngredients(ingredientArray) {
     for (let ingredient of ingredientArray) {
       if(ingredient.category == 'Refrigerator') {
@@ -50,9 +84,5 @@ myApp.service('GroceryListService', ['RecipeService', function(RecipeService){
       }
     }
   }
-
-  self.createList = function() {
-    console.log(self.groceryList.ingredientsFinal);
-  };
 
 }]);
