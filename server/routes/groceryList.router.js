@@ -71,7 +71,13 @@ router.put('/', isAuthenticated, (req, res) => {
       console.log('find list response: ', response);
       res.send(response);
     });
+});
 
+router.delete('/', isAuthenticated, (req, res) => {
+  GroceryList.remove({'userId': req.user.id})
+    .then( (response) => {
+      res.sendStatus(201);
+    });
 });
 
 

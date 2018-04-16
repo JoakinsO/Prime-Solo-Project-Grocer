@@ -52,6 +52,8 @@ myApp.service('GroceryListService', ['RecipeService', '$http', function(RecipeSe
     $http.post('/groceryList', newList)
       .then( function(response){
         console.log(response);
+        self.getUserList();
+        self.clearRecipes();
       });
   };
 
@@ -60,8 +62,9 @@ myApp.service('GroceryListService', ['RecipeService', '$http', function(RecipeSe
       .then( function(response){
         console.log(response.data);
         if(response.data.length > 0) {
+          self.listToggle = true;
           self.userList.list = response.data[0].ingredients;
-          sortIngredients(self.userList.list);
+
         }
       });
   };
@@ -70,6 +73,16 @@ myApp.service('GroceryListService', ['RecipeService', '$http', function(RecipeSe
     $http.put('/groceryList', ingredient)
       .then( function(response) {
         console.log(response);
+      });
+  };
+
+  self.removeUserList = function() {
+    $http.delete('/groceryList')
+      .then( function(response) {
+        console.log(response);
+        console.log('list removed');
+        self.getUserList();
+        self.userList.list = [];
       });
   };
 
