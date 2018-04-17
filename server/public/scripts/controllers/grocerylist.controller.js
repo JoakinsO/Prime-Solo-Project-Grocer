@@ -27,7 +27,6 @@ myApp.controller('GroceryListController', ['GroceryListService', 'RecipeService'
 
   self.createList = function() {
     GroceryListService.createList();
-    console.log('user list',self.userList);
   };
 
   GroceryListService.getUserList();
@@ -39,7 +38,7 @@ myApp.controller('GroceryListController', ['GroceryListService', 'RecipeService'
 
   self.removeUserList = function() {
     GroceryListService.removeUserList();
-    
+
   };
 
 }]);

@@ -43,6 +43,9 @@ myApp.service('GroceryListService', ['RecipeService', '$http', function(RecipeSe
   };
 
   self.createList = function() {
+    if(self.addedRecipes.list.length === 0) {
+      return;
+    }
     let ingredients = self.groceryList.ingredientsFinal;
     let newList = {
       name: 'New List',
