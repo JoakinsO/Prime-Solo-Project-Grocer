@@ -11,7 +11,7 @@ class GroceryList {
     this.ingredientsFinal = [];
     this.pantry = [];
     this.freezer = [];
-    this.refrigerator =[];
+    this.refrigerator = [];
   }
 
   addedRecipesList(recipeName) {

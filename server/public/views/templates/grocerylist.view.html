@@ -2,7 +2,7 @@
 
 <main id="groceryList">
   <h1 class="titleUnderline">Grocery List</h1>
-  <div layout="row" layout-xs="column" layout-sm="column">
+  <div layout="row" layout-xs="column" layout-sm="column" ng-if="vm.userList.list.length < 1">
     <div flex>
       <p>Select recipes from the list below to populate the shopping list.</p>
       <md-input-container id="recipeSelect" flex-gt-sm="">
@@ -13,14 +13,17 @@
           </md-option>
         </md-select>
       </md-input-container>
-      <md-button class="md-raised btnFocus" ng-click="vm.addRecipesToList(user.state)">Add Recipe</md-button>
-      <md-button class="md-raised btnFocus" ng-click="vm.clearRecipes()">Clear Recipes</md-button>
+      <div>
+        <md-button class="md-raised btnFocus" ng-click="vm.addRecipesToList(user.state)">Add Recipe</md-button>
+        <md-button class="md-raised btnFocus" ng-click="vm.clearRecipes()">Clear Recipes</md-button>
+        <md-button class="md-raised btnFocus" ng-click="vm.createList()">Create A Shopping List</md-button>
+      </div>
       <h3 class="titleUnderline">Recipes Added:</h3>
       <p ng-repeat="recipe in vm.addedRecipes.list track by $index">{{recipe}}</p>
     </div>
     <div flex>
       <div>
-        <h2 class="titleUnderline">Shopping List</h2>
+        <h2 class="titleUnderline">Ingredients</h2>
         <div layout="row" layout-sm="column" layout-xs="column">
           <div flex>
             <h4 ng-if="vm.refrigerator.list.length >= 1">Refrigerator</h4>
@@ -44,6 +47,45 @@
             </p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="vm.userList.list.length > 0">
+    <md-button class="md-raised btnFocus" ng-click="vm.removeUserList()">Clear List</md-button>
+    <div layout="column" layout-gt-md="row">
+      <div flex>
+        <h4>Refrigerator</h4>
+        <p ng-repeat="ingredient in vm.userList.list">
+          <span ng-if="ingredient.category === 'Refrigerator'">
+            <md-checkbox ng-click="vm.inCart(ingredient)" ng-checked="ingredient.purchased" aria-label="Checkbox 1" >
+            </md-checkbox>
+            <span ng-if="ingredient.measurement != 'Item'">{{ingredient.quantity}} {{ingredient.measurement}} {{ingredient.ingredientName}}</span>
+            <span ng-if="ingredient.measurement === 'Item'">{{ingredient.quantity}} {{ingredient.ingredientName}}</span>
+          </span>
+        </p>
+      </div>
+      <div flex>
+        <h4>Pantry</h4>
+        <p ng-repeat="ingredient in vm.userList.list">
+          <span ng-if="ingredient.category === 'Pantry'">
+            <md-checkbox ng-click="vm.inCart(ingredient)" ng-checked="ingredient.purchased" aria-label="Checkbox 1" >
+            </md-checkbox>
+            <span ng-if="ingredient.measurement != 'Item'">{{ingredient.quantity}} {{ingredient.measurement}} {{ingredient.ingredientName}}</span>
+            <span ng-if="ingredient.measurement === 'Item'">{{ingredient.quantity}} {{ingredient.ingredientName}}</span>
+          </span>
+        </p>
+      </div>
+      <div flex>
+        <h4>Freezer</h4>
+        <p ng-repeat="ingredient in vm.userList.list">
+          <span ng-if="ingredient.category === 'Freezer'">
+            <md-checkbox ng-click="vm.inCart(ingredient)" ng-checked="ingredient.purchased" aria-label="Checkbox 1" >
+            </md-checkbox>
+            <span ng-if="ingredient.measurement != 'Item'">{{ingredient.quantity}} {{ingredient.measurement}} {{ingredient.ingredientName}}</span>
+            <span ng-if="ingredient.measurement === 'Item'">{{ingredient.quantity}} {{ingredient.ingredientName}}</span>
+          </span>
+        </p>
       </div>
     </div>
   </div>

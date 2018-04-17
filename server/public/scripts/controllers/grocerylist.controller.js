@@ -2,11 +2,15 @@ myApp.controller('GroceryListController', ['GroceryListService', 'RecipeService'
 
   var self = this;
 
+  self.userList = GroceryListService.userList;
+
   self.recipeList = RecipeService.userRecipes;
   self.addedRecipes = GroceryListService.addedRecipes;
   self.refrigerator = GroceryListService.refrigerator;
   self.freezer = GroceryListService.freezer;
   self.pantry = GroceryListService.pantry;
+
+  self.toggleUserList = false;
 
   self.logout = function() {
     LoginService.logout();
@@ -19,6 +23,23 @@ myApp.controller('GroceryListController', ['GroceryListService', 'RecipeService'
 
   self.addRecipesToList = function(recipe) {
     GroceryListService.addRecipesToList(recipe);
+  };
+
+  self.createList = function() {
+    GroceryListService.createList();
+    console.log('user list',self.userList);
+  };
+
+  GroceryListService.getUserList();
+
+  self.inCart = function(ingredient) {
+    ingredient.purchased = !ingredient.purchased;
+    GroceryListService.inCart(ingredient);
+  };
+
+  self.removeUserList = function() {
+    GroceryListService.removeUserList();
+    
   };
 
 }]);
