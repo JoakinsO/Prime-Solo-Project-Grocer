@@ -28,7 +28,7 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
           clickOutsideToClose: true
         })
         .then(function (answer) {
-          console.log(answer);
+          // console.log(answer);
           LoginService.registerUser(answer);
         }, function () {
           self.status = 'You cancelled the dialog.';
