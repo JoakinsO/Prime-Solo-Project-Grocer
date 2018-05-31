@@ -177,6 +177,12 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input.head
   color: #1A2A40;
 }
 
+.back-btn {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #2474A6;
+}
+
 /* IDs */
 
 #loginAlert {
@@ -283,6 +289,10 @@ md-input-container.md-default-theme .md-input, md-input-container .md-input.head
 
   html, body {
     background-color: #1a2b40;
+  }
+
+  main {
+
   }
 
   md-dialog-content {
