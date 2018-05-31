@@ -1,5 +1,5 @@
 myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdDialog', function($http, $location, LoginService, $mdDialog) {
-    console.log('LoginController created');
+    // console.log('LoginController created');
     var self = this;
 
     self.user = {
@@ -14,7 +14,7 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
         swal('Please try again!', 'You have entered an invalid username or password.');
       } else {
         LoginService.login(userCreds);
-        console.log(self.loginAlert);
+        // console.log(self.loginAlert);
       }
     };
 
@@ -32,7 +32,7 @@ myApp.controller('LoginController', ['$http', '$location', 'LoginService', '$mdD
           LoginService.registerUser(answer);
         }, function () {
           self.status = 'You cancelled the dialog.';
-          console.log(self.status);
+          // console.log(self.status);
         });
     };
 

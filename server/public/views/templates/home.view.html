@@ -3,25 +3,40 @@
 
 <main id="homeView">
   <h1 class="titleUnderline">Recipes</h1>
-  <p>Click the blue button to add recipes.</p>
+  <div ng-if="!vm.recipeClicked">
+    <p>Click the blue button to add recipes.</p>
 
-  <div ng-cloak layout-xs="column" layout="row" layout-wrap>
-    <div class="card" ng-repeat="recipe in vm.userRecipes.list">
-      <div class="container">
-        <h4><b>{{recipe.recipeName}}</b></h4>
+    <div ng-cloak layout-xs="column" layout="row" layout-wrap>
+      <div class="card" ng-repeat="recipe in vm.userRecipes.list">
+        <div class="container">
+          <h4><b>{{recipe.recipeName}}</b></h4>
+        </div>
+        <div class="buttonDiv">
+          <md-button class="md-raised recipeView btnFocusWhite" ng-click="vm.viewRecipe(recipe)">View</md-button><md-button class="md-raised md-warn recipeRemove btnFocusWhite" ng-click="vm.removeRecipe(recipe)">Remove</md-button>
+        </div>
       </div>
-      <div class="buttonDiv">
-        <md-button class="md-raised recipeView btnFocusWhite" ng-click="vm.viewRecipe(recipe)">View</md-button><md-button class="md-raised md-warn recipeRemove btnFocusWhite" ng-click="vm.removeRecipe(recipe)">Remove</md-button>
+      <div class="card">
+        <div class="container">
+          <h4 id="addRecipeTitle">Add Recipe</h4>
+            <!-- <a ng-href="#!addRecipe"><button type="button" name="button">Add Recipe</button></a> -->
+            <md-button  id="addButtonColor" class="md-fab md-mini md-primary" aria-label="Plus" ng-href="#!addRecipe">
+              <md-icon md-svg-src="vendors/icons/ic_add_white_48px.svg" style="color: greenyellow;"></md-icon>
+            </md-button>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <div class="container">
-        <h4 id="addRecipeTitle">Add Recipe</h4>
-          <!-- <a ng-href="#!addRecipe"><button type="button" name="button">Add Recipe</button></a> -->
-          <md-button  id="addButtonColor" class="md-fab md-mini md-primary" aria-label="Plus" ng-href="#!addRecipe">
-            <md-icon md-svg-src="vendors/icons/ic_add_white_48px.svg" style="color: greenyellow;"></md-icon>
-          </md-button>
-      </div>
+  </div>
+  <div ng-if="vm.recipeClicked">
+    <h2 class="back-btn" ng-click="vm.recipeClicked = false">Back</h2>
+    <h2>{{vm.singleRecipe.recipeName}}</h2>
+    <div class="md-dialog-content">
+      <h3>Ingredients</h3>
+      <ul ng-repeat="ingredient in vm.singleRecipe.ingredients">
+        <li>
+          <span> <b>{{ingredient.ingredientName}}</b> {{ingredient.quantity}} {{ingredient.measurement}}</span>
+        </li>
+      </ul>
+      <md-button class="md-raised btnFocus" ng-click="vm.editRecipe(vm.singleRecipe)">Edit</md-button>
     </div>
   </div>
 </main>
