@@ -12,9 +12,9 @@ if (process.env.MONGODB_URI != undefined) {
     mongoURI = 'mongodb://localhost:27017/grocer';
 }
 
-mongoose.connect(mongoURI, {
-    useMongoClient: true
-});
+// mongoose.connect(mongoURI, {
+//     useMongoClient: true
+// });
 
 mongoose.connection.on('error', function (err) {
     if (err) {
