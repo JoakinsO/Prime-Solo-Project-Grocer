@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Philip-Owen/Prime-Solo-Project-Grocer#readme",
   "dependencies": {
-    "angular": "^1.6.9",
+    "angular": "^1.7.9",
     "angular-animate": "^1.6.9",
     "angular-aria": "^1.6.9",
     "angular-material": "^1.1.7",
@@ -30,7 +30,7 @@
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "mongoose": "^5.0.4",
+    "mongoose": "^5.9.9",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
   },
